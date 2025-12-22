@@ -1,5 +1,4 @@
-import AdminLoginForm from "@/components/AdminLoginForm";
-import Link from "next/link";
+export const dynamic = "force-dynamic";
 import { getAdminSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import "@/styles/admin.css";

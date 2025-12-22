@@ -1,3 +1,5 @@
+
+export const dynamic = "force-dynamic";
 import BlogForm from "@/components/BlogForm";
 
 export const metadata = {

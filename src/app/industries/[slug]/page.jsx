@@ -274,7 +274,11 @@ export default async function IndustryPage({ params }) {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            {industryData.plans
+            {(Array.isArray(industryData.plans)
+                ? industryData.plans
+                : (typeof industryData.plans === 'object' && industryData.plans !== null)
+                  ? Object.values(industryData.plans)
+                  : [])
               .sort((a, b) => {
                 const order = { Starter: 0, Growth: 1, Premium: 2 };
                 return (order[a.name] || 999) - (order[b.name] || 999);
