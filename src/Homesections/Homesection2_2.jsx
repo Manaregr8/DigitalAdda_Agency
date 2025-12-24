@@ -3,14 +3,13 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-// Replace this with your actual 18 brand objects
 const brands = [
   { id: 1, name: "Blumera", src: "/brands/1.png" },
   { id: 2, name: "CUET-Adda", src: "/brands/2.png" },
   { id: 3, name: "DesigningVidya", src: "/brands/3.png" },
   { id: 4, name: "DigitalAdda", src: "/brands/4.png" },
   { id: 5, name: "Digiwarms", src: "/brands/5.png" },
-  { id: 6, name: "DigitalAdda", src: "/brands/6.png" },
+  { id: 6, name: "DigitalAdda II", src: "/brands/6.png" },
   { id: 7, name: "Economics With Gulshan Sir", src: "/brands/7.png" },
   { id: 8, name: "FACT Education", src: "/brands/8.png" },
   { id: 9, name: "Hacking Vidya", src: "/brands/9.png" },
@@ -34,95 +33,87 @@ export default function BrandShowcase() {
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.08,
+        staggerChildren: 0.06,
         delayChildren: 0.2,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    hidden: { opacity: 0, y: 15, scale: 0.97 },
     show: {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
+      transition: { duration: 0.5, ease: [0.34, 1.56, 0.64, 1] },
     },
     hover: {
-      scale: 1.03,
-      boxShadow: "0 8px 30px rgba(120, 119, 198, 0.2)",
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut",
-      },
+      scale: 1.05,
+      y: -4,
+      boxShadow: "0 8px 32px rgba(188, 62, 201, 0.25)",
+      transition: { duration: 0.25 },
     },
   };
 
   return (
     <section
       ref={ref}
-      className="relative py-12 sm:py-16 lg:py-24 px-4 sm:px-6 overflow-hidden"
+      className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 overflow-hidden"
       style={{
         background:
           "radial-gradient(circle at top left, #0f0020 0%, transparent 40%), radial-gradient(circle at bottom right, #0f0f1e 0%, #020617 100%)",
       }}
     >
-      {/* Subtle ambient glows */}
+      {/* Ambient glows */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -left-20 top-10 w-64 h-64 rounded-full bg-indigo-600/10 blur-2xl" />
-        <div className="absolute right-0 bottom-10 w-80 h-80 rounded-full bg-purple-600/10 blur-2xl" />
+        <div className="absolute -left-24 top-1/4 w-72 h-72 rounded-full bg-indigo-600/8 opacity-10 blur-3xl" />
+        <div className="absolute right-0 bottom-1/4 w-80 h-80 rounded-full bg-purple-600/10 opacity-15 blur-3xl" />
       </div>
 
-      <div className="max-w-6xl mx-auto w-full">
+      <div className="max-w-[1350px] mx-auto w-full">
         {/* Headline */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center mb-8 sm:mb-12 md:mb-16 px-2"
+          transition={{ duration: 0.8 }}
+          className="text-center mb-8 sm:mb-10 md:mb-12 px-2"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
             <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               Trusted by Ambitious Brands
             </span>
           </h2>
-          <p className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-300 max-w-2xl mx-auto px-2">
-            We partner with visionary teams to build scalable, high-impact solutions that drive real growth.
+          <p className="mt-3 sm:mt-4 text-gray-300 max-w-2xl mx-auto text-base sm:text-lg">
+            We partner with visionary teams to build scalable, high-impact solutions.
           </p>
         </motion.div>
 
-        {/* Grid Container */}
-        <div className="max-w-5xl mx-auto w-full">
-          <div className="bg-white/5 backdrop-blur-xl rounded-3xl p-4 sm:p-6 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
+        {/* Brand Grid – Zero Padding Around Logos */}
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={containerVariants}
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4"
+        >
+          {brands.map((brand) => (
             <motion.div
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.1 }}
-              variants={containerVariants}
-              className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5 md:gap-6"
+              key={brand.id}
+              variants={itemVariants}
+              whileHover="hover"
+              className="group flex items-center justify-center rounded-xl bg-white/3 backdrop-blur-sm border border-white/5 transition-all duration-300 hover:bg-white/5 hover:shadow-[0_8px_32px_rgba(120,119,198,0.2)]"
             >
-              {brands.map((brand) => (
-                <motion.div
-                  key={brand.id}
-                  variants={itemVariants}
-                  whileHover="hover"
-                  className="group flex items-center justify-center p-3 sm:p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all duration-300 border border-white/5"
-                >
-                  <div className="w-full h-24 sm:h-28 md:h-32 flex items-center justify-center relative overflow-hidden rounded-md">
-                    <img
-                      src={brand.src}
-                      alt={brand.name}
-                      className="max-h-full max-w-full object-contain filter group-hover:brightness-110 transition-transform duration-300 transform group-hover:scale-105"
-                    />
-                  </div>
-                </motion.div>
-              ))}
+              {/* ZERO PADDING — Logo fills entire card */}
+              <img
+                src={brand.src}
+                alt={brand.name}
+                className="w-full h-full object-contain filter group-hover:brightness-105 transition-all duration-300 ease-out"
+                // Optional: if logos are vector-based or need crisp edges
+                style={{ imageRendering: 'optimizeQuality' }}
+              />
             </motion.div>
-          </div>
-        </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

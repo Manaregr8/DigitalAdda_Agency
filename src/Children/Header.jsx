@@ -59,7 +59,7 @@ export default function Header() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setPopupOpen(true);
-    }, 60000); // 60000ms = 1 minute
+    }, 10000); // 60000ms = 1 minute
 
     return () => clearTimeout(timer);
   }, []);
@@ -92,14 +92,15 @@ export default function Header() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 bg-linear-to-r from-black via-purple-900 to-gray-900 shadow-lg">
-        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-6 py-5 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             {!imageError ? (
               <img
-                src="/final logo.png"
+                src="/DAFINAL.png"
+                // src="/final logo.png"
                 alt="Digital Adda"
-                className="h-10 w-auto ml-12 mt-1.5 scale-300 md:scale-400"
+                className="h-15 w-auto ml-10 md:ml-18   scale-300 md:scale-400"
                 onError={() => setImageError(true)}
               />
             ) : (
@@ -252,88 +253,66 @@ export default function Header() {
       </div>
 
       {/* POPUP FORM OVERLAY */}
-      {popupOpen && (
-        <div
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              setPopupOpen(false);
-              setShowSuccess(false);
-            }
+     {popupOpen && (
+  <div
+    className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
+    onClick={(e) => {
+      if (e.target === e.currentTarget) {
+        setPopupOpen(false);
+        setShowSuccess(false);
+      }
+    }}
+  >
+   {popupOpen && (
+  <div
+    className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
+    onClick={(e) => {
+      if (e.target === e.currentTarget) {
+        setPopupOpen(false);
+        setShowSuccess(false);
+      }
+    }}
+  >
+    {/* Container with hidden scrollbar */}
+    <div className="w-full max-w-md max-h-[90vh] overflow-y-auto hide-scrollbar">
+      <div className="bg-gradient-to-b from-gray-900 to-purple-900/50 rounded-3xl p-6 md:p-8 relative border border-purple-500/30 shadow-2xl">
+        {/* Close Button */}
+        <button
+          onClick={() => {
+            setPopupOpen(false);
+            setShowSuccess(false);
           }}
+          className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center transition-all duration-300 hover:rotate-90"
         >
-          <div className="bg-linear-to-b from-gray-900 to-purple-900/50 rounded-3xl p-8 max-w-md w-full relative border border-purple-500/30 shadow-2xl">
-            {/* Close Button */}
-            <button
-              onClick={() => {
-                setPopupOpen(false);
-                setShowSuccess(false);
-              }}
-              className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white rounded-full w-10 h-10 flex items-center justify-center transition-all duration-300 hover:rotate-90"
-            >
-              <X className="w-6 h-6" />
-            </button>
+          <X className="w-5 h-5 md:w-6 md:h-6" />
+        </button>
 
-            {!showSuccess ? (
-              <>
-                {/* Form Header */}
-                <div className="text-center mb-6">
-                  <h2 className="text-3xl font-bold bg-linear-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent mb-2">
-                    Get Free Consultation
-                  </h2>
-                  <p className="text-gray-300 text-sm">
-                    Let's discuss how we can help grow your business
-                  </p>
-                </div>
+        {!showSuccess ? (
+          <>
+            <div className="text-center mb-5">
+              <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent mb-2">
+                Get Free Consultation
+              </h2>
+              <p className="text-gray-300 text-sm">
+                Let's discuss how we can help grow your business
+              </p>
+            </div>
 
-                {/* Form */}
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div>
-                    <label className="block text-white text-sm font-medium mb-2">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      placeholder="John Doe"
-                      className="w-full px-4 py-3 bg-white/5 border border-purple-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-white text-sm font-medium mb-2">
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      placeholder="john@example.com"
-                      className="w-full px-4 py-3 bg-white/5 border border-purple-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-white text-sm font-medium mb-2">
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      placeholder="+91 **********"
-                      className="w-full px-4 py-3 bg-white/5 border border-purple-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-white text-sm font-medium mb-2">
-                      Service Interested In *
-                    </label>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {['name', 'email', 'phone', 'service', 'message'].map((field) => (
+                <div key={field}>
+                  <label className="block text-white text-sm font-medium mb-2">
+                    {field === 'name' && 'Full Name *'}
+                    {field === 'email' && 'Email Address *'}
+                    {field === 'phone' && 'Phone Number'}
+                    {field === 'service' && 'Service Interested In *'}
+                    {field === 'message' && 'Tell us about your project'}
+                  </label>
+                  {field === 'service' ? (
                     <select
                       name="service"
                       required
-                      className="w-full px-4 py-3 bg-white/5 border border-purple-500/30 rounded-xl text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition"
+                      className="w-full px-4 py-2.5 md:py-3 bg-white/5 border border-purple-500/30 rounded-xl text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition appearance-none text-sm"
                     >
                       <option value="">Select a service</option>
                       <option value="digital-marketing">Digital Marketing</option>
@@ -345,43 +324,56 @@ export default function Header() {
                       <option value="web-development">Web Development</option>
                       <option value="other">Other</option>
                     </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-white text-sm font-medium mb-2">
-                      Tell us about your project
-                    </label>
+                  ) : field === 'message' ? (
                     <textarea
                       name="message"
-                      rows="3"
+                      rows="2"
                       placeholder="Describe your requirements..."
-                      className="w-full px-4 py-3 bg-white/5 border border-purple-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition resize-none"
+                      className="w-full px-4 py-2.5 md:py-3 bg-white/5 border border-purple-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition resize-none text-sm"
                     ></textarea>
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full py-3 bg-linear-to-r from-purple-600 to-indigo-600 rounded-xl font-semibold text-white shadow-lg hover:scale-105 transition-all duration-300"
-                  >
-                    Send Message
-                  </button>
-                </form>
-              </>
-            ) : (
-              /* Success Message */
-              <div className="text-center py-8">
-                <div className="w-20 h-20 bg-linear-to-r from-purple-600 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-4xl">✓</span>
+                  ) : (
+                    <input
+                      type={field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text'}
+                      name={field}
+                      required={field !== 'phone'}
+                      placeholder={
+                        field === 'name'
+                          ? 'John Doe'
+                          : field === 'email'
+                          ? 'john@example.com'
+                          : '+91 **********'
+                      }
+                      className="w-full px-4 py-2.5 md:py-3 bg-white/5 border border-purple-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition text-sm"
+                    />
+                  )}
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-2">Thank You!</h3>
-                <p className="text-gray-300">
-                  We've received your message and will get back to you within 24 hours.
-                </p>
-              </div>
-            )}
+              ))}
+
+              <button
+                type="submit"
+                className="w-full py-3 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl font-semibold text-white shadow-lg hover:scale-[1.02] transition-transform duration-300 text-sm md:text-base"
+              >
+                Send Message
+              </button>
+            </form>
+          </>
+        ) : (
+          <div className="text-center py-6">
+            <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl md:text-4xl text-white">✓</span>
+            </div>
+            <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Thank You!</h3>
+            <p className="text-gray-300 text-sm px-2">
+              We've received your message and will get back to you within 24 hours.
+            </p>
           </div>
-        </div>
-      )}
+        )}
+      </div>
+    </div>
+  </div>
+)}
+  </div>
+)}
 
       {/* FLOATING WHATSAPP BUTTON */}
    <a href="https://wa.me/1234567890"

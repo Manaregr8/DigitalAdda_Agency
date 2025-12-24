@@ -165,3 +165,21 @@
 .animate-marquee-reverse {
   animation: marquee-reverse 20s linear infinite;
 }
+
+/* Hide scrollbar but keep scrolling functional */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari, Opera */
+}
+
+
+/* brands  */
+img {
+  image-rendering: pixelated; /* for pixel-art logos */
+  /* OR */
+  image-rendering: crisp-edges; /* for vector/logos needing sharp edges */
+}
