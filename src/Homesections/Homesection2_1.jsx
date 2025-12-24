@@ -171,9 +171,9 @@ export default function VideoTestimonialPage() {
 
           {/* Mobile - Horizontal carousel */}
           {isMobile && (
-            <div className="w-full mt-13 ">
+            <div className="w-full mt-13 h-fit ">
               <div 
-                className="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory hide-scrollbar"
+                className="flex gap-3 overflow-x-auto pt-4 pb-2 snap-x snap-mandatory hide-scrollbar"
                 style={{ scrollBehavior: 'smooth' }}
               >
                 {testimonials.map((testimonial, index) => {
