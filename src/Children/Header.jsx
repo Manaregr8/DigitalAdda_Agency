@@ -182,7 +182,7 @@ export default function Header() {
           mobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="p-6 pt-20">
+        <div className="p-6 pt-30">
           {/* Mobile Logo */}
           <Link
             href="/"
@@ -375,20 +375,27 @@ export default function Header() {
   </div>
 )}
 
-      {/* FLOATING WHATSAPP BUTTON */}
-   <a href="https://wa.me/1234567890"
+   {/* FLOATING WHATSAPP BUTTON — now on the right */}
+<a
+  href="https://wa.me/1234567890"
   target="_blank"
   rel="noopener noreferrer"
   className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:scale-110 transition-all duration-300"
 >
-  <img 
-    className="w-8 h-8" 
-    src="/social.png" 
-    alt="WhatsApp" 
-  />
+  <img className="w-8 h-8" src="/social.png" alt="WhatsApp" />
 </a>
 
-      {/* AI CHATBOT TOGGLE BUTTON */}
+{/* AI CHATBOT TOGGLE BUTTON — also on the right, slightly above WhatsApp */}
+<div
+  onClick={() => setChatOpen(!chatOpen)}
+  className="fixed bottom-24 right-6 z-50 cursor-pointer group"
+>
+  <div className="bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-full shadow-lg hover:scale-110 transition-all duration-300">
+    <img className="w-8 h-8" src="/robot.png" alt="AI Assistant" />
+  </div>
+</div>
+
+      {/* AI CHATBOT TOGGLE BUTTON
       <div
         onClick={() => setChatOpen(!chatOpen)}
         className="fixed bottom-6 left-6 z-50 cursor-pointer group"
@@ -400,14 +407,14 @@ export default function Header() {
     alt="WhatsApp" 
   />
         </div>
-      </div>
+      </div> */}
 
       {/* AI CHATBOT PANEL */}
-      <div
-        className={`fixed bottom-24 left-6 z-50 w-96 h-[500px] bg-gray-900 rounded-2xl shadow-2xl border border-purple-500/30 transform transition-all duration-300 ${
-          chatOpen ? "scale-100 opacity-100" : "scale-95 opacity-0 pointer-events-none"
-        }`}
-      >
+    <div
+  className={`fixed bottom-24 right-6 z-50 w-96 h-[500px] bg-gray-900 rounded-2xl shadow-2xl border border-purple-500/30 transform transition-all duration-300 ${
+    chatOpen ? "scale-100 opacity-100" : "scale-95 opacity-0 pointer-events-none"
+  }`}
+>
         {/* HEADER */}
         <div className="bg-linear-to-r from-purple-600 to-indigo-600 p-4 rounded-t-2xl flex items-center justify-between">
           <span className="text-white font-bold text-lg">AI Assistant</span>
@@ -433,7 +440,7 @@ export default function Header() {
         </div>
 
         {/* INPUT BAR */}
-        <div className="p-4 border-t border-gray-800">
+        <div className="pb-4 border-t border-gray-800">
           <div className="flex gap-2">
             <input
               type="text"
