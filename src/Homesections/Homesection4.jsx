@@ -52,6 +52,13 @@ const trends = [
     icon: <Globe className="w-6 h-6 sm:w-8 sm:h-8" />,
     linear: 'from-indigo-600 to-blue-600',
   },
+   {
+    number: '08',
+    title: 'Conversion Rate Optimization (CRO)',
+    desc: 'AI heatmaps, A/B testing, and behavioral analysis turn website visitors into loyal paying customers.',
+    icon: <Globe className="w-6 h-6 sm:w-8 sm:h-8" />,
+    linear: 'from-indigo-600 to-blue-600',
+  }
 ];
 
 export default function Homesection4() {

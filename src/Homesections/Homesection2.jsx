@@ -83,7 +83,7 @@ export default function ConsultingServices() {
                 className="col-span-1 row-span-1 relative rounded-br-[12px] rounded-tl-[12px] overflow-hidden shadow-md border border-white/6 group transform-gpu hover:scale-105 hover:-translate-y-1"
               >
                 <img
-                  src="/dapic/1.jpeg"
+                  src="/dapic/1.webp"
                   alt="Top Right"
                   loading="lazy"
                   className="w-full h-full object-cover object-bottom transition-transform duration-400 group-hover:scale-105"
@@ -101,7 +101,7 @@ export default function ConsultingServices() {
                 className="col-span-1 row-span-1 relative rounded-br-[12px] rounded-tl-[12px] overflow-hidden shadow-md border border-white/6 group transform-gpu hover:scale-105 hover:-translate-y-1"
               >
                 <img
-                  src="group4.jpeg"
+                  src="dapic/group4.jpeg"
                   alt="Middle Left"
                   loading="lazy"
                   className="w-full h-full object-cover object-center-right transition-transform duration-400 group-hover:scale-105"
@@ -119,7 +119,7 @@ export default function ConsultingServices() {
                 className="col-span-1 row-span-1 relative rounded-br-[12px] rounded-tl-[12px] overflow-hidden shadow-md border border-white/6 group transform-gpu hover:scale-105 hover:-translate-y-1"
               >
                 <img
-                  src="group2.jpeg"
+                  src="dapic/9.webp"
                   alt="Middle Center"
                   loading="lazy"
                   className="w-full h-full object-cover object-center transition-transform duration-400 group-hover:scale-105"
@@ -137,7 +137,7 @@ export default function ConsultingServices() {
                 className="col-span-1 md:row-span-2 row-span-1 relative rounded-br-[20px] rounded-tl-[20px] overflow-hidden shadow-2xl border border-white/8 group transform-gpu hover:scale-103 hover:-translate-y-1"
               >
                 <img
-                  src="group3.jpeg"
+                  src="dapic/group3.webp"
                   alt="Right Tall"
                   loading="lazy"
                   className="w-full h-full object-cover object-bottom md:object-top transition-transform duration-500 group-hover:scale-105"
@@ -155,7 +155,7 @@ export default function ConsultingServices() {
                 className="col-span-1 row-span-1 relative rounded-br-[12px] rounded-tl-[12px] overflow-hidden shadow-md border border-white/6 group transform-gpu hover:scale-105 hover:-translate-y-1"
               >
                 <img
-                  src="/dapic/6.jpeg"
+                  src="/dapic/6.webp"
                   alt="Bottom Left"
                   loading="lazy"
                   className="w-full h-full object-cover object-center transition-transform duration-400 group-hover:scale-105"
@@ -173,7 +173,7 @@ export default function ConsultingServices() {
                 className="col-span-1 row-span-1 relative rounded-br-[12px] rounded-tl-[12px] overflow-hidden shadow-md border border-white/6 group transform-gpu hover:scale-105 hover:-translate-y-1"
               >
                 <img
-                  src="/dapic/3.jpeg"
+                  src="/dapic/3.webp"
                   alt="Bottom Center"
                   loading="lazy"
                   className="w-full h-full object-cover object-center transition-transform duration-400 group-hover:scale-105"
@@ -191,7 +191,7 @@ export default function ConsultingServices() {
                 className="col-span-1 row-span-1 relative rounded-br-[12px] rounded-tl-[12px] overflow-hidden shadow-md border border-white/6 group transform-gpu hover:scale-105 hover:-translate-y-1"
               >
                 <img
-                  src="/dapic/7.jpeg"
+                  src="/dapic/7.webp"
                   alt="Bottom Right"
                   loading="lazy"
                   className="w-full h-full object-cover object-center transition-transform duration-400 group-hover:scale-105"
