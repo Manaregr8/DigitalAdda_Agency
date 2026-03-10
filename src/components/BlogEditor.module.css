@@ -1,0 +1,79 @@
+.editor {
+  border: 1px solid #d7deea;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.content {
+  background: #fff;
+}
+
+.content :global(.ql-editor) {
+  min-height: 320px;
+  padding: 1rem 1.1rem;
+  outline: none;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #1f2937;
+}
+
+.content :global(.ql-toolbar.ql-snow) {
+  border: none;
+  border-bottom: 1px solid #d7deea;
+  background: #eef1f6;
+  padding: 0.55rem 0.7rem;
+}
+
+.content :global(.ql-toolbar.ql-snow .ql-formats) {
+  margin-right: 0.55rem;
+}
+
+.content :global(.ql-snow.ql-toolbar button),
+.content :global(.ql-snow .ql-toolbar button) {
+  width: 1.8rem;
+  height: 1.8rem;
+  padding: 0.2rem;
+  border-radius: 4px;
+}
+
+.content :global(.ql-snow.ql-toolbar button svg),
+.content :global(.ql-snow .ql-toolbar button svg) {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.content :global(.ql-snow .ql-picker) {
+  color: #334155;
+  font-size: 0.95rem;
+}
+
+.content :global(.ql-snow .ql-picker.ql-header) {
+  width: 120px;
+}
+
+.content :global(.ql-snow .ql-picker.ql-header .ql-picker-label) {
+  padding-right: 1.2rem;
+}
+
+.content :global(.ql-container.ql-snow) {
+  border: none;
+  min-height: 320px;
+  font-family: inherit;
+}
+
+.content :global(.ql-snow .ql-tooltip.ql-hidden) {
+  display: none !important;
+}
+
+.content :global(.ql-snow .ql-tooltip) {
+  z-index: 30;
+}
+
+.content :global(.ql-snow .ql-stroke) {
+  stroke: #334155;
+}
+
+.content :global(.ql-snow .ql-fill) {
+  fill: #334155;
+}

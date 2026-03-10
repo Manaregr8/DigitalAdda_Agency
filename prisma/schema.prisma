@@ -14,15 +14,17 @@ datasource db {
 }
 
 model Blog {
-  id              String   @id @default(cuid())
+  id              String   @id @default(uuid())
   title           String
   slug            String   @unique
-  content         String
-  coverImg        String?
-  ogImage         String?
   metaTitle       String?
   metaDescription String?
   tags            String[]
+  keywords        String[]
+  schemas         Json[]
+  coverImage      String?  @map("coverImg")
+  ogImage         String?
+  content         String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }

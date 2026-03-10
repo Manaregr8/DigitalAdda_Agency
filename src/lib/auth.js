@@ -5,18 +5,14 @@ import crypto from "node:crypto";
 const SESSION_COOKIE = "admin_session";
 const CSRF_COOKIE = "admin_csrf";
 const SESSION_TTL_MS = 1000 * 60 * 60 * 12; // 12 hours
-const PASSWORD_POLICY = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{12,}$/;
-
-const ensureStrongAdminPassword = () => {
+const warnIfMissingAdminPassword = () => {
   const adminPass = process.env.ADMIN_PASSWORD || "";
-  if (!PASSWORD_POLICY.test(adminPass)) {
-    throw new Error(
-      "ADMIN_PASSWORD must be at least 12 characters and include upper, lower, number, and special characters"
-    );
+  if (!adminPass) {
+    console.warn("ADMIN_PASSWORD is not set. Admin login will fail until credentials are configured.");
   }
 };
 
-ensureStrongAdminPassword();
+warnIfMissingAdminPassword();
 
 const getSecret = () => {
   const secret = process.env.ADMIN_SESSION_SECRET;

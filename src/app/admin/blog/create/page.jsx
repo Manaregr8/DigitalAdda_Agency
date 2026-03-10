@@ -1,15 +1,5 @@
+import { redirect } from "next/navigation";
 
-export const dynamic = "force-dynamic";
-import BlogForm from "@/components/BlogForm";
-
-export const metadata = {
-  title: "Create Blog Post",
-};
-
-export default function CreateBlogPage() {
-  return (
-    <section className="admin-panel">
-      <BlogForm mode="create" />
-    </section>
-  );
+export default function LegacyCreateBlogPage() {
+  redirect("/admin/blogs/create");
 }

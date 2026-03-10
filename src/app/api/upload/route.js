@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { ensureAdminApi } from "@/lib/auth";
 import { recordAudit } from "@/lib/audit";
 import { getClientIp } from "@/lib/request-info";
+import { uploadToImgBB } from "@/lib/imgbb";
 
 const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const ALLOWED_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp"];
@@ -46,40 +47,30 @@ export async function POST(request) {
 
     const sanitizedName = originalName.replace(/[^a-z0-9.\-]/gi, "_") || "upload";
 
-    const upstreamFormData = new FormData();
-    upstreamFormData.append("image", base64Image);
-    upstreamFormData.append("name", sanitizedName.replace(/\.[^.]+$/, ""));
-
-    const imgbbResponse = await fetch(`https://api.imgbb.com/1/upload?key=${encodeURIComponent(apiKey)}`, {
-      method: "POST",
-      body: upstreamFormData,
+    const payload = await uploadToImgBB({
+      apiKey,
+      base64Image,
+      fileName: sanitizedName,
     });
-
-    const payload = await imgbbResponse.json().catch(() => null);
-
-    if (!imgbbResponse.ok || !payload?.success) {
-      const errorMessage = payload?.error?.message || payload?.data?.error || "Unable to reach image host";
-      return NextResponse.json({ error: errorMessage }, { status: 502 });
-    }
 
     const ip = await getClientIp(request);
     await recordAudit("upload.image", {
       actor: session.sub,
       entity: "Upload",
-      entityId: payload.data.id,
+      entityId: payload.id,
       ip,
       metadata: {
         originalName,
         size: file.size,
         type: file.type,
-        hostedUrl: payload.data.display_url,
+        hostedUrl: payload.url,
       },
     });
 
     return NextResponse.json({
-      url: payload.data.display_url,
-      deleteUrl: payload.data.delete_url,
-      id: payload.data.id,
+      url: payload.url,
+      deleteUrl: payload.deleteUrl,
+      id: payload.id,
     });
   } catch (error) {
     console.error("POST /api/upload failed", error);

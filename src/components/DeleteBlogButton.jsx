@@ -17,7 +17,7 @@ const DeleteBlogButton = ({ id, title }) => {
 
     try {
       const response = await fetch(
-        `/api/blog/${id}`,
+        `/api/admin/blog/${id}`,
         withAdminCsrf({
           method: "DELETE",
         })

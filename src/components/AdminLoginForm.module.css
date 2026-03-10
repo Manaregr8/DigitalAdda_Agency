@@ -1,0 +1,55 @@
+.authForm {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.authForm h2 {
+  margin: 0;
+}
+
+.authForm label {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.authForm input {
+  border: 1px solid #cfd6e4;
+  border-radius: 10px;
+  padding: 0.7rem 0.8rem;
+  font: inherit;
+}
+
+.hint {
+  margin: 0;
+  color: #4a5568;
+  font-size: 0.92rem;
+}
+
+.formStatus {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.error {
+  color: #9b1c1c;
+}
+
+.success {
+  color: #0f5132;
+}
+
+.submitButton {
+  border: 0;
+  border-radius: 10px;
+  background: #0c2238;
+  color: #fff;
+  padding: 0.75rem 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
