@@ -4,15 +4,18 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import BlogEditor from "@/components/BlogEditor";
 import { withAdminCsrf } from "@/lib/client-csrf";
+import styles from "./BlogForm.module.css";
 
 const baseState = {
   title: "",
   slug: "",
-  coverImg: "",
+  coverImage: "",
   ogImage: "",
   metaTitle: "",
   metaDescription: "",
   tags: "",
+  keywords: "",
+  schemas: [""],
   content: "",
 };
 
@@ -34,8 +37,13 @@ const BlogForm = ({ initialData = null, mode = "create" }) => {
     ...baseState,
     ...initialData,
     tags: initialData?.tags?.join(", ") || initialData?.tags || "",
+    keywords: initialData?.keywords?.join(", ") || initialData?.keywords || "",
+    schemas: Array.isArray(initialData?.schemas) && initialData.schemas.length
+      ? initialData.schemas.map((entry) => JSON.stringify(entry, null, 2))
+      : [""],
     content: initialData?.content || "",
     ogImage: initialData?.ogImage || "",
+    coverImage: initialData?.coverImage || "",
     metaTitle: initialData?.metaTitle || "",
     metaDescription: initialData?.metaDescription || "",
   }));
@@ -57,6 +65,25 @@ const BlogForm = ({ initialData = null, mode = "create" }) => {
 
   const setField = (field, value) => {
     setFormValues((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const updateSchema = (index, value) => {
+    setFormValues((prev) => {
+      const next = [...prev.schemas];
+      next[index] = value;
+      return { ...prev, schemas: next };
+    });
+  };
+
+  const addSchemaField = () => {
+    setFormValues((prev) => ({ ...prev, schemas: [...prev.schemas, ""] }));
+  };
+
+  const removeSchemaField = (index) => {
+    setFormValues((prev) => {
+      const next = prev.schemas.filter((_, currentIndex) => currentIndex !== index);
+      return { ...prev, schemas: next.length ? next : [""] };
+    });
   };
 
   const handleFileChange = async (event) => {
@@ -83,7 +110,7 @@ const BlogForm = ({ initialData = null, mode = "create" }) => {
       if (!response.ok) {
         throw new Error(result.error || "Upload failed");
       }
-      setField("coverImg", result.url);
+      setField("coverImage", result.url);
       setStatus({ type: "success", message: "Image uploaded" });
     } catch (error) {
       setStatus({ type: "error", message: error.message });
@@ -105,16 +132,18 @@ const BlogForm = ({ initialData = null, mode = "create" }) => {
       const payload = {
         title: formValues.title.trim(),
         slug: formValues.slug.trim() || clientSlugify(formValues.title),
-        coverImg: formValues.coverImg?.trim() || "",
+        coverImage: formValues.coverImage?.trim() || "",
         ogImage: formValues.ogImage?.trim() || "",
         metaTitle: formValues.metaTitle?.trim() || "",
         metaDescription: formValues.metaDescription?.trim() || "",
         tags: formValues.tags,
+        keywords: formValues.keywords,
+        schemas: formValues.schemas.filter((entry) => entry.trim()).map((entry) => JSON.parse(entry)),
         content: formValues.content,
       };
 
       const isEdit = mode === "edit" && initialData?.id;
-      const endpoint = isEdit ? `/api/blog/${initialData.id}` : "/api/blog";
+      const endpoint = isEdit ? `/api/admin/blog/${initialData.id}` : "/api/admin/blog";
       const method = isEdit ? "PUT" : "POST";
 
       const response = await fetch(
@@ -136,7 +165,7 @@ const BlogForm = ({ initialData = null, mode = "create" }) => {
       }
 
       setStatus({ type: "success", message: isEdit ? "Post updated" : "Post created" });
-      router.push("/admin/blog");
+      router.push("/admin/blogs");
       router.refresh();
     } catch (error) {
       setStatus({ type: "error", message: error.message });
@@ -146,13 +175,13 @@ const BlogForm = ({ initialData = null, mode = "create" }) => {
   };
 
   return (
-    <form className="admin-form" onSubmit={handleSubmit} aria-busy={submitting || uploading}>
-      <header className="admin-form__header">
+    <form className={styles.form} onSubmit={handleSubmit} aria-busy={submitting || uploading}>
+      <header className={styles.formHeader}>
         <h2>{formTitle}</h2>
         <p>Use the editor below to manage the blog content that powers every site.</p>
       </header>
 
-      <div className="form-grid">
+      <div className={styles.formGrid}>
         <label>
           Title
           <input
@@ -219,13 +248,25 @@ const BlogForm = ({ initialData = null, mode = "create" }) => {
         </label>
 
         <label>
+          Keywords
+          <input
+            type="text"
+            name="keywords"
+            placeholder="web design, ui ux, development"
+            value={formValues.keywords}
+            onChange={(event) => setField("keywords", event.target.value)}
+          />
+          <small>Comma-separated SEO keywords.</small>
+        </label>
+
+        <label>
           Cover Image URL
           <input
             type="text"
-            name="coverImg"
+            name="coverImage"
             placeholder="https://"
-            value={formValues.coverImg}
-            onChange={(event) => setField("coverImg", event.target.value)}
+            value={formValues.coverImage}
+            onChange={(event) => setField("coverImage", event.target.value)}
           />
         </label>
 
@@ -252,14 +293,36 @@ const BlogForm = ({ initialData = null, mode = "create" }) => {
         </label>
       </div>
 
-      <label className="editor-label">
+      <section className={styles.schemaSection}>
+        <div className={styles.schemaHeader}>
+          <h3>Structured Data Schemas (JSON-LD)</h3>
+          <button type="button" onClick={addSchemaField} className={styles.secondaryButton}>
+            + Add Schema
+          </button>
+        </div>
+        {formValues.schemas.map((schema, index) => (
+          <div key={`${index}-schema`} className={styles.schemaItem}>
+            <textarea
+              rows={6}
+              value={schema}
+              onChange={(event) => updateSchema(index, event.target.value)}
+              placeholder='{"@context":"https://schema.org","@type":"BlogPosting"}'
+            />
+            <button type="button" onClick={() => removeSchemaField(index)} className={styles.removeButton}>
+              Remove
+            </button>
+          </div>
+        ))}
+      </section>
+
+      <label className={styles.editorLabel}>
         Content
         <BlogEditor value={formValues.content} onChange={(html) => setField("content", html)} />
       </label>
 
       {status.message ? (
         <p
-          className={`form-status form-status--${status.type}`}
+          className={`${styles.formStatus} ${status.type === "error" ? styles.error : styles.success}`}
           role={status.type === "error" ? "alert" : "status"}
           aria-live={status.type === "error" ? "assertive" : "polite"}
         >
@@ -267,8 +330,8 @@ const BlogForm = ({ initialData = null, mode = "create" }) => {
         </p>
       ) : null}
 
-      <div className="form-actions">
-        <button type="submit" className="btn btn--primary" disabled={submitting || uploading}>
+      <div className={styles.formActions}>
+        <button type="submit" className={styles.primaryButton} disabled={submitting || uploading}>
           {submitting ? "Saving..." : formTitle}
         </button>
       </div>

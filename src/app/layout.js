@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "@/styles/globals.css";
 import Header from "@/Children/Header";
 import Footer from "@/Children/Footer";
 
@@ -21,16 +22,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-       <head>
-        {/* Tailwind Play CDN for v4+ */}
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Header/>
 
-        {children}
+        <main style={{ paddingTop: "100px" }}>
+          {children}
+        </main>
         <Footer/>
       </body>
     </html>

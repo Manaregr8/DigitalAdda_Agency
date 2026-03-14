@@ -21,7 +21,9 @@ const seedBlogs = [
   {
     title: "Launching a Multi-tenant Content Engine",
     tags: ["Next.js", "Architecture", "Prisma"],
-    coverImg: "/placeholder.svg",
+    keywords: ["nextjs", "multi-tenant", "prisma"],
+    schemas: [],
+    coverImage: "/placeholder.svg",
     content: demoContent(
       "Scale without rebuilding",
       "This kit focuses on a reusable setup so you can clone it many times and only swap brand-specific pieces like colors, typography, and hero sections."
@@ -30,7 +32,9 @@ const seedBlogs = [
   {
     title: "Authoring Experience with TipTap",
     tags: ["Editor", "TipTap", "Admin"],
-    coverImg: "/placeholder.svg",
+    keywords: ["tiptap", "editor", "blog cms"],
+    schemas: [],
+    coverImage: "/placeholder.svg",
     content: demoContent(
       "Rich text without plugins",
       "TipTap provides a modern authoring experience with extensible toolbars, keyboard shortcuts, and clean HTML output ready for SEO-friendly rendering."
@@ -39,7 +43,9 @@ const seedBlogs = [
   {
     title: "Improving SEO for Content-heavy Sites",
     tags: ["SEO", "Content", "Performance"],
-    coverImg: "/placeholder.svg",
+    keywords: ["seo", "meta", "structured data"],
+    schemas: [],
+    coverImage: "/placeholder.svg",
     content: demoContent(
       "Metadata and related posts",
       "Each blog detail page ships with dynamic metadata, structured headings, and related content suggestions to keep readers engaged."
@@ -55,10 +61,14 @@ async function main() {
       where: { slug },
       update: {
         ...blog,
+        metaTitle: blog.title,
+        metaDescription: "Production-ready blog post seeded for initial setup.",
         slug,
       },
       create: {
         ...blog,
+        metaTitle: blog.title,
+        metaDescription: "Production-ready blog post seeded for initial setup.",
         slug,
       },
     });

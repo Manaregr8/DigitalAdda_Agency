@@ -7,11 +7,12 @@ const AdminLayout = ({ children }) => (
     <aside className="admin-nav">
       <h2>Admin</h2>
       <nav>
-        <Link href="/admin/blog">All Posts</Link>
-        <Link href="/admin/blog/create">Create Post</Link>
+        <Link href="/admin/dashboard">Dashboard</Link>
+        <Link href="/admin/blogs">All Posts</Link>
+        <Link href="/admin/blogs/create">Create Post</Link>
       </nav>
       <AdminLogoutButton />
-      <Link href="/blog" className="admin-nav__link">
+      <Link href="/blogs" className="admin-nav__link">
         ← Back to site
       </Link>
     </aside>

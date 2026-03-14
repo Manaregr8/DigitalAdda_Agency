@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import styles from "./AdminLoginForm.module.css";
 
 const hintId = "admin-login-hint";
 
@@ -22,7 +23,7 @@ const AdminLoginForm = () => {
     setStatus({ type: null, message: "" });
 
     try {
-      const response = await fetch("/api/admin/session", {
+      const response = await fetch("/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formValues),
@@ -35,7 +36,7 @@ const AdminLoginForm = () => {
         throw new Error(result.error || "Invalid credentials");
       }
       setStatus({ type: "success", message: "Signed in" });
-      router.push("/admin/blog");
+      router.push("/admin/dashboard");
       router.refresh();
     } catch (error) {
       setStatus({ type: "error", message: error.message });
@@ -45,9 +46,9 @@ const AdminLoginForm = () => {
   };
 
   return (
-    <form className="auth-form" onSubmit={handleSubmit} aria-busy={submitting}>
+    <form className={styles.authForm} onSubmit={handleSubmit} aria-busy={submitting}>
       <h2>Welcome back</h2>
-      <p id={hintId} className="auth-form__hint">
+      <p id={hintId} className={styles.hint}>
         Use the administrator credentials from your environment configuration.
       </p>
 
@@ -79,7 +80,7 @@ const AdminLoginForm = () => {
 
       {status.message ? (
         <p
-          className={`form-status form-status--${status.type}`}
+          className={`${styles.formStatus} ${status.type === "error" ? styles.error : styles.success}`}
           role={status.type === "error" ? "alert" : "status"}
           aria-live={status.type === "error" ? "assertive" : "polite"}
         >
@@ -87,7 +88,7 @@ const AdminLoginForm = () => {
         </p>
       ) : null}
 
-      <button type="submit" className="btn btn--primary" disabled={submitting}>
+      <button type="submit" className={styles.submitButton} disabled={submitting}>
         {submitting ? "Signing in..." : "Sign In"}
       </button>
     </form>

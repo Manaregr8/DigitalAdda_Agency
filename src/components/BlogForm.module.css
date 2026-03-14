@@ -1,0 +1,112 @@
+.form {
+  display: grid;
+  gap: 1rem;
+  background: #fff;
+  border-radius: 14px;
+  padding: 1rem;
+  border: 1px solid #dde4f1;
+}
+
+.formHeader h2 {
+  margin: 0;
+}
+
+.formHeader p {
+  margin: 0.35rem 0 0;
+  color: #556070;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.9rem;
+}
+
+.formGrid label {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.formGrid input,
+.formGrid textarea {
+  border: 1px solid #cfd6e4;
+  border-radius: 10px;
+  padding: 0.7rem 0.8rem;
+  font: inherit;
+}
+
+.schemaSection {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.schemaHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.schemaHeader h3 {
+  margin: 0;
+}
+
+.schemaItem {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.schemaItem textarea {
+  width: 100%;
+  border: 1px solid #cfd6e4;
+  border-radius: 10px;
+  padding: 0.7rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.editorLabel {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.primaryButton,
+.secondaryButton,
+.removeButton {
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 0.65rem 0.9rem;
+}
+
+.primaryButton {
+  background: #0e2a47;
+  color: #fff;
+  font-weight: 600;
+}
+
+.secondaryButton {
+  background: #dce9f7;
+}
+
+.removeButton {
+  justify-self: end;
+  background: #fbe2e2;
+  color: #9f1e1e;
+}
+
+.formStatus {
+  margin: 0;
+}
+
+.error {
+  color: #9b1c1c;
+}
+
+.success {
+  color: #0f5132;
+}

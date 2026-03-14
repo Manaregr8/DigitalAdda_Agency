@@ -5,12 +5,12 @@ export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: {
-    default: "Blog Admin",
-    template: "%s | Blog Admin",
-  },
+    default: "Admin Panel",
+    template: "%s | Admin Panel"
+  }
 };
 
-export default async function BlogAdminLayout({ children }) {
+export default async function ProtectedAdminLayout({ children }) {
   await requireAdminUser();
   return <AdminLayout>{children}</AdminLayout>;
 }

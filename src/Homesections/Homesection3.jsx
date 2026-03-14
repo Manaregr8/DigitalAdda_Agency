@@ -52,22 +52,37 @@ const CLIENTS = [
   "Economics with Gulshan Sir",
 ];
 
+const PARTICLE_COUNT = 12;
+
+function createSeededRandom(seed) {
+  let value = seed;
+  return () => {
+    value = (value * 1664525 + 1013904223) % 4294967296;
+    return value / 4294967296;
+  };
+}
+
+const PARTICLES = (() => {
+  const random = createSeededRandom(42);
+  return Array.from({ length: PARTICLE_COUNT }, () => ({
+    width: `${random() * 4 + 2}px`,
+    height: `${random() * 4 + 2}px`,
+    left: `${random() * 100}%`,
+    top: `${random() * 100}%`,
+    animation: `float ${random() * 10 + 15}s linear infinite`,
+    animationDelay: `${random() * 5}s`,
+    willChange: "transform",
+  }));
+})();
+
 function FloatingParticles() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(12)].map((_, i) => (
+      {PARTICLES.map((style, i) => (
         <div
           key={i}
           className="absolute rounded-full bg-purple-400/20"
-          style={{
-            width: Math.random() * 4 + 2 + "px",
-            height: Math.random() * 4 + 2 + "px",
-            left: Math.random() * 100 + "%",
-            top: Math.random() * 100 + "%",
-            animation: `float ${Math.random() * 10 + 15}s linear infinite`,
-            animationDelay: Math.random() * 5 + "s",
-            willChange: "transform",
-          }}
+          style={style}
         />
       ))}
     </div>
