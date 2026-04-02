@@ -1,208 +1,110 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
+const PHOTOS = [
+  { src: "group.jpeg",       alt: "Leadership Team",     label: "Strategic Leadership",  span: "col-span-2 md:col-span-2 md:row-span-2" },
+  { src: "/dapic/1.webp",    alt: "Team Collaborate",    label: "Collaborative Spirit",  span: "col-span-1 md:row-span-1" },
+  { src: "dapic/group4.jpeg",alt: "Growth Mindset",      label: "Growth Mindset",        span: "col-span-1 md:row-span-1" },
+  { src: "dapic/9.webp",     alt: "Innovation Hub",      label: "Innovation Hub",        span: "col-span-1 md:row-span-1" },
+  { src: "dapic/group3.webp",alt: "Global Perspective",  label: "Global Perspective",    span: "col-span-1 md:row-span-2" },
+  { src: "/dapic/6.webp",    alt: "Client First",        label: "Client First",          span: "col-span-1 md:row-span-1" },
+  { src: "/dapic/3.webp",    alt: "Team Retreat",        label: "Team Retreat",          span: "col-span-1 md:row-span-1" },
+  { src: "/dapic/7.webp",    alt: "Design Studio",       label: "Design Studio",         span: "col-span-1 md:row-span-1" },
+];
+
 export default function ConsultingServices() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
 
   return (
     <section
-      ref={ref}
-      // Fix: use proper gradient utility
-      className="relative py-12 sm:py-16 lg:py-24 px-4 sm:px-6 overflow-hidden bg-gradient-to-br from-[#0f0020] via-[#1a0033] to-[#0f0f1e]"
+      ref={sectionRef}
+      className="relative py-20 sm:py-24 lg:py-28 px-4 sm:px-6 overflow-hidden bg-[#08001a]"
     >
-      {/* Light background glows */}
+      {/* Ambient glows */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 -left-40 w-80 h-80 bg-purple-600/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 -right-40 w-96 h-96 bg-pink-600/20 rounded-full blur-3xl" />
+        <div className="absolute top-0 right-1/4 w-[480px] h-[480px] bg-purple-800/8 rounded-full blur-[140px]" />
+        <div className="absolute bottom-0 left-1/4 w-[360px] h-[360px] bg-indigo-800/8 rounded-full blur-[140px]" />
       </div>
 
-      <div className="max-w-7xl mx-auto">
-        <div className="grid gap-8 lg:gap-12 items-start">
-          {/* Centered Heading */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7 }}
-            className="text-center w-full"
-          >
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight">
-              <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                Our Space
-              </span>
-              <br />
-              <span className="text-white">Our Team, Our Culture</span>
-            </h2>
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={isInView ? { scaleX: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mx-auto mt-4 h-1 w-40 bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 rounded-full origin-left"
-            />
-            <p className="mt-4 text-base sm:text-lg text-gray-300 max-w-3xl mx-auto">
-              Your success, our expertise — partnering for growth and innovation at the highest level.
-            </p>
-          </motion.div>
+      <div className="relative max-w-7xl mx-auto">
 
-          {/* Photo Frame Collage - Now Fully Responsive */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative"
-          >
-            {/* Responsive grid: 2 cols (mobile) → 3 cols (md+) */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6 lg:gap-8 md:auto-rows-[220px] lg:auto-rows-[280px]">
-              
-              {/* Top wide - full width on mobile, 2 cols on md+ */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.6 }}
-                className="col-span-2 md:col-span-2 lg:row-span-2 aspect-[16/9] md:aspect-auto md:row-span-1 relative rounded-br-[20px] rounded-tl-[20px] overflow-hidden shadow-2xl border border-white/8 group transform-gpu scale-[1.02] md:scale-[1.03] -translate-y-0 md:-translate-y-1 z-10 hover:scale-[1.04] hover:-translate-y-1"
-              >
-                <img
-                  src="group.jpeg"
-                  alt="Leadership Team"
-                  loading="lazy"
-                  className="w-full h-full object-cover object-center transition-transform duration-500"
-                />
-                <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-black/20 backdrop-blur-sm">
-                  <p className="text-white text-xs sm:text-sm font-medium">Strategic Leadership</p>
-                </div>
-              </motion.div>
+        {/* ── Section Header ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.65, ease: "easeOut" }}
+          className="text-center mb-14 sm:mb-16"
+        >
+          <span className="inline-block mb-5 text-[10px] sm:text-[11px] font-bold tracking-[0.3em] uppercase text-purple-400 border border-purple-500/40 px-5 py-1.5 bg-purple-500/10">
+            Our People
+          </span>
 
-              {/* Top right small */}
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-[1.1] mb-5 tracking-tight">
+            Our Space, Our Team,
+            <br />
+            <span className="text-purple-300">Our Culture</span>
+          </h2>
+
+          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            Behind every campaign is a team that genuinely cares — driven by curiosity,
+            fuelled by craft, and committed to results that last.
+          </p>
+
+          {/* Decorative divider */}
+          <div className="flex items-center justify-center gap-3 mt-7">
+            <div className="h-px w-16 bg-purple-600/40" />
+            <div className="w-1.5 h-1.5 bg-purple-500 rotate-45" />
+            <div className="h-px w-16 bg-purple-600/40" />
+          </div>
+        </motion.div>
+
+        {/* ── Photo Grid ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.75, delay: 0.2, ease: "easeOut" }}
+        >
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3 md:auto-rows-[220px] lg:auto-rows-[260px]">
+            {PHOTOS.map(({ src, alt, label, span }, i) => (
               <motion.div
-                initial={{ opacity: 0, y: 12 }}
+                key={alt}
+                initial={{ opacity: 0, y: 16 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.04 }}
-                className="col-span-1 aspect-square md:aspect-auto md:row-span-1 relative rounded-br-[12px] rounded-tl-[12px] overflow-hidden shadow-md border border-white/6 group transform-gpu hover:scale-105 hover:-translate-y-1"
+                transition={{ delay: 0.25 + i * 0.06, duration: 0.5, ease: "easeOut" }}
+                className={`${span} relative overflow-hidden border border-white/[0.07] group aspect-square md:aspect-auto hover:border-purple-500/40 transition-colors duration-300`}
               >
                 <img
-                  src="/dapic/1.webp"
-                  alt="Top Right"
+                  src={src}
+                  alt={alt}
                   loading="lazy"
-                  className="w-full h-full object-cover object-center transition-transform duration-400 group-hover:scale-105"
+                  className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105 brightness-90 group-hover:brightness-100"
                 />
-                <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 bg-black/30 backdrop-blur-sm">
-                  <p className="text-white text-xs font-medium">Collaborative Spirit</p>
+                {/* Bottom label bar */}
+                <div className="absolute bottom-0 left-0 right-0 px-4 py-2.5 bg-black/50 border-t border-white/[0.07] flex items-center gap-2">
+                  {/* Small accent dot */}
+                  <div className="w-1 h-1 bg-purple-400 rotate-45 flex-shrink-0" />
+                  <p className="text-white text-[10px] sm:text-xs font-bold uppercase tracking-[0.15em] truncate">
+                    {label}
+                  </p>
                 </div>
               </motion.div>
+            ))}
+          </div>
+        </motion.div>
 
-              {/* Middle left */}
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.08 }}
-                className="col-span-1 aspect-square md:aspect-auto md:row-span-1 relative rounded-br-[12px] rounded-tl-[12px] overflow-hidden shadow-md border border-white/6 group transform-gpu hover:scale-105 hover:-translate-y-1"
-              >
-                <img
-                  src="dapic/group4.jpeg"
-                  alt="Middle Left"
-                  loading="lazy"
-                  className="w-full h-full object-cover object-center transition-transform duration-400 group-hover:scale-105"
-                />
-                <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 bg-black/30 backdrop-blur-sm">
-                  <p className="text-white text-xs font-medium">Growth Mindset</p>
-                </div>
-              </motion.div>
+        {/* ── Bottom note ── */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.9, duration: 0.55 }}
+          className="mt-10 text-center text-[11px] font-bold uppercase tracking-[0.25em] text-purple-600"
+        >
+          New Delhi &nbsp;&middot;&nbsp; A team that grows with you
+        </motion.p>
 
-              {/* Middle center - Normal height on mobile */}
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.12 }}
-                className="col-span-1 aspect-square md:aspect-auto md:row-span-1 relative rounded-br-[12px] rounded-tl-[12px] overflow-hidden shadow-md border border-white/6 group transform-gpu hover:scale-105 hover:-translate-y-1"
-              >
-                <img
-                  src="dapic/9.webp"
-                  alt="Middle Center"
-                  loading="lazy"
-                  className="w-full h-full object-cover object-center transition-transform duration-400 group-hover:scale-105"
-                />
-                <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 bg-black/30 backdrop-blur-sm">
-                  <p className="text-white text-xs font-medium">Innovation Hub</p>
-                </div>
-              </motion.div>
-
-              {/* Right tall - Normal height on mobile, 2 rows on md+ */}
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.16 }}
-                className="col-span-1 aspect-square md:aspect-auto md:row-span-2 relative rounded-br-[20px] rounded-tl-[20px] overflow-hidden shadow-2xl border border-white/8 group transform-gpu hover:scale-103 hover:-translate-y-1"
-              >
-                <img
-                  src="dapic/group3.webp"
-                  alt="Right Tall"
-                  loading="lazy"
-                  className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-black/30 backdrop-blur-sm">
-                  <p className="text-white text-xs sm:text-sm font-medium">Global Perspective</p>
-                </div>
-              </motion.div>
-
-              {/* Bottom left */}
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.20 }}
-                className="col-span-1 aspect-square md:aspect-auto md:row-span-1 relative rounded-br-[12px] rounded-tl-[12px] overflow-hidden shadow-md border border-white/6 group transform-gpu hover:scale-105 hover:-translate-y-1"
-              >
-                <img
-                  src="/dapic/6.webp"
-                  alt="Bottom Left"
-                  loading="lazy"
-                  className="w-full h-full object-cover object-center transition-transform duration-400 group-hover:scale-105"
-                />
-                <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 bg-black/30 backdrop-blur-sm">
-                  <p className="text-white text-xs font-medium">Client First</p>
-                </div>
-              </motion.div>
-
-              {/* Bottom center */}
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.24 }}
-                className="col-span-1 aspect-square md:aspect-auto relative rounded-br-[12px] rounded-tl-[12px] overflow-hidden shadow-md border border-white/6 group transform-gpu hover:scale-105 hover:-translate-y-1"
-              >
-                <img
-                  src="/dapic/3.webp"
-                  alt="Bottom Center"
-                  loading="lazy"
-                  className="w-full h-full object-cover object-center transition-transform duration-400 group-hover:scale-105"
-                />
-                <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 bg-black/30 backdrop-blur-sm">
-                  <p className="text-white text-xs font-medium">Team Retreat</p>
-                </div>
-              </motion.div>
-
-              {/* Bottom right */}
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.28 }}
-                className="col-span-1 aspect-square md:aspect-auto relative rounded-br-[12px] rounded-tl-[12px] overflow-hidden shadow-md border border-white/6 group transform-gpu hover:scale-105 hover:-translate-y-1"
-              >
-                <img
-                  src="/dapic/7.webp"
-                  alt="Bottom Right"
-                  loading="lazy"
-                  className="w-full h-full object-cover object-center transition-transform duration-400 group-hover:scale-105"
-                />
-                <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 bg-black/30 backdrop-blur-sm">
-                  <p className="text-white text-xs font-medium">Design Studio</p>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
       </div>
     </section>
   );

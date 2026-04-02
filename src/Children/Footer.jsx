@@ -4,9 +4,9 @@ import { MapPin, Phone, Mail, Facebook, Twitter, Linkedin, Instagram, Youtube } 
 
 export default function Footer() {
   return (
-    <footer className="relative bg-[#0b0b1a] border-t border-cyan-500/10 overflow-hidden">
+    <footer className="relative bg-[#050512] border-t border-cyan-500/10 overflow-hidden">
       {/* Top neon glow line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400/70 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-purple-900/60" />
 
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
@@ -98,7 +98,7 @@ export default function Footer() {
                 href="https://maps.google.com/maps?q=Digital+Adda+Agency+Gurugram"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute bottom-4 left-4 bg-gradient-to-r from-purple-600 to-indigo-600 backdrop-blur-lg border border-cyan-400/30 px-5 py-2.5 rounded-full text-cyan-300 text-sm font-semibold hover:bg-cyan-500/30 hover:scale-105 transition-all duration-300 flex items-center gap-2 shadow-lg"
+                className="absolute bottom-4 left-4 bg-purple-600 hover:bg-purple-700 backdrop-blur-lg border border-cyan-400/30 px-5 py-2.5 rounded-full text-cyan-300 text-sm font-semibold hover:scale-105 transition-all duration-300 flex items-center gap-2 shadow-lg"
               >
                 <MapPin className="w-4 h-4" />
                 Open in Maps
@@ -128,7 +128,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom neon line */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#200842] to-[#422369]" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-[#12022a]" />
     </footer>
   );
 }

@@ -72,9 +72,9 @@ export default function PortfolioProjectForm() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto bg-gradient-to-b from-gray-900 to-purple-900/50 p-8 rounded-2xl mt-20 shadow-2xl border border-purple-700/30 mt-10">
+    <div className="max-w-2xl mx-auto bg-gray-900 p-8 rounded-2xl mt-20 shadow-2xl border border-purple-700/30 mt-10">
       <div className="text-center mb-6">
-        <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent mb-2">
+        <h2 className="text-3xl font-bold text-purple-300 mb-2">
           Start Your Project
         </h2>
         <p className="text-gray-300 text-base">
@@ -102,7 +102,7 @@ export default function PortfolioProjectForm() {
                 <Listbox.Button className="w-full px-4 py-2.5 bg-purple-900/50 border border-purple-500/30 rounded-xl text-white text-left focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition text-sm">
                   {formData.service.label}
                 </Listbox.Button>
-                <Listbox.Options className="absolute left-0 w-full mt-2 bg-gradient-to-b from-gray-900 to-purple-900/95 border border-purple-500/30 rounded-xl shadow-xl max-h-60 overflow-y-auto focus:outline-none custom-scrollbar">
+                <Listbox.Options className="absolute left-0 w-full mt-2 bg-gray-900 border border-purple-500/30 rounded-xl shadow-xl max-h-60 overflow-y-auto focus:outline-none custom-scrollbar">
                   {serviceOptions.map((option) => (
                     <Listbox.Option
                       key={option.value}
@@ -139,7 +139,7 @@ export default function PortfolioProjectForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-3 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl font-semibold text-white shadow-lg hover:scale-[1.02] transition-transform duration-300 text-base flex items-center justify-center gap-3 disabled:opacity-70"
+          className="w-full py-3 bg-purple-600 hover:bg-purple-700 rounded-xl font-semibold text-white shadow-lg hover:scale-[1.02] transition-transform duration-300 text-base flex items-center justify-center gap-3 disabled:opacity-70"
         >
           {isSubmitting ? (
             <>
@@ -160,7 +160,7 @@ export default function PortfolioProjectForm() {
             href="/portfolio.pdf"
             download
             ref={downloadRef}
-            className="inline-block px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl font-semibold text-white shadow-lg hover:scale-[1.03] transition-transform duration-300 text-base mt-2"
+            className="inline-block px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-xl font-semibold text-white shadow-lg hover:scale-[1.03] transition-transform duration-300 text-base mt-2"
           >
             Download Portfolio PDF
           </a>

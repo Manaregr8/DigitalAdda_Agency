@@ -1,0 +1,202 @@
+{
+  "serviceSlugMap": {
+    "seo": "Search Engine Optimization",
+    "website-designing": "Website Designing",
+    "graphic-design": "Graphic Design",
+    "video-editing": "Professional Video Editing",
+    "local-seo": "Local SEO",
+    "content-writing": "Content Writing",
+    "affiliate-marketing": "Affiliate Marketing",
+    "influencer-marketing": "Influencer Marketing",
+    "social-media-marketing": "Social Media Marketing",
+    "ppc": "Pay Per Click",
+    "whatsapp-marketing": "WhatsApp Marketing",
+    "email-marketing": "E-mail Marketing",
+    "data-management": "Data Management",
+    "pr-marketing": "PR Marketing"
+  },
+  "services": {
+    "Search Engine Optimization": {
+      "hero": {
+        "title": "Boost Your Visibility. Dominate Search Results.",
+        "subtitle": "Expert SEO strategies for sustainable growth.",
+        "description": "We help you climb search rankings, attract qualified traffic, and convert visitors into loyal customers. Our SEO approach is data-driven, transparent, and always focused on ROI."
+      },
+      "cta": "Get Your Free SEO Audit",
+      "features": [
+        { "title": "On-Page Optimization", "description": "Technical and content improvements for maximum search visibility." },
+        { "title": "Link Building", "description": "Earn high-quality backlinks to boost authority and trust." },
+        { "title": "Local SEO", "description": "Capture nearby customers and dominate local search results." }
+      ]
+    },
+    "Website Designing": {
+      "hero": {
+        "title": "Modern, Responsive Websites That Convert.",
+        "subtitle": "Designs that impress and perform on every device.",
+        "description": "We craft visually stunning, user-friendly websites tailored to your brand and business goals. Every site is optimized for speed, SEO, and seamless user experience."
+      },
+      "cta": "Start Your Website Project",
+      "features": [
+        { "title": "Custom Design", "description": "Unique layouts and branding for every client." },
+        { "title": "Mobile-First", "description": "Flawless experience on phones, tablets, and desktops." },
+        { "title": "Conversion Focused", "description": "Built to turn visitors into leads and customers." }
+      ]
+    },
+    "Graphic Design": {
+      "hero": {
+        "title": "Creative Visuals That Tell Your Story.",
+        "subtitle": "Branding, marketing, and digital design that stands out.",
+        "description": "From logos to social media graphics, our design team delivers eye-catching visuals that elevate your brand and engage your audience."
+      },
+      "cta": "Request a Design Consultation",
+      "features": [
+        { "title": "Brand Identity", "description": "Logos, color palettes, and style guides." },
+        { "title": "Marketing Collateral", "description": "Brochures, banners, and digital ads." },
+        { "title": "Social Media Kits", "description": "Ready-to-use graphics for every platform." }
+      ]
+    },
+    "Professional Video Editing": {
+      "hero": {
+        "title": "Engaging Videos That Captivate.",
+        "subtitle": "Professional editing for brands, products, and stories.",
+        "description": "We turn raw footage into polished, compelling videos that drive results—whether for ads, YouTube, or social media."
+      },
+      "cta": "Book a Video Editing Session",
+      "features": [
+        { "title": "Storytelling", "description": "Narrative-driven edits that connect with viewers." },
+        { "title": "Motion Graphics", "description": "Add energy and clarity with custom animations." },
+        { "title": "Multi-Platform", "description": "Optimized exports for every channel and device." }
+      ]
+    },
+    "Local SEO": {
+      "hero": {
+        "title": "Own Your Local Market.",
+        "subtitle": "Attract nearby customers and grow your reputation.",
+        "description": "We optimize your business for local search, maps, and directories—so you’re found by the people who matter most."
+      },
+      "cta": "Get a Local SEO Plan",
+      "features": [
+        { "title": "Google My Business", "description": "Setup, optimization, and review management." },
+        { "title": "Local Listings", "description": "Consistent NAP across all directories." },
+        { "title": "Geo-Targeted Content", "description": "Content that speaks to your local audience." }
+      ]
+    },
+    "Content Writing": {
+      "hero": {
+        "title": "Words That Work for Your Brand.",
+        "subtitle": "SEO-friendly, persuasive, and on-brand content.",
+        "description": "Our writers craft blog posts, web copy, and marketing materials that engage, inform, and convert."
+      },
+      "cta": "Request a Content Sample",
+      "features": [
+        { "title": "SEO Copywriting", "description": "Content that ranks and resonates." },
+        { "title": "Brand Voice", "description": "Consistent tone across all channels." },
+        { "title": "Long-Form & Short-Form", "description": "From articles to ad copy, we do it all." }
+      ]
+    },
+    "Affiliate Marketing": {
+      "hero": {
+        "title": "Grow With Strategic Partnerships.",
+        "subtitle": "Performance-based marketing for scalable results.",
+        "description": "We build and manage affiliate programs that drive sales, leads, and brand awareness—without upfront risk."
+      },
+      "cta": "Launch Your Affiliate Program",
+      "features": [
+        { "title": "Network Setup", "description": "Connect with top affiliates in your niche." },
+        { "title": "Tracking & Reporting", "description": "Transparent, real-time performance data." },
+        { "title": "Compliance", "description": "Protect your brand and stay within guidelines." }
+      ]
+    },
+    "Influencer Marketing": {
+      "hero": {
+        "title": "Amplify Your Brand With Influencers.",
+        "subtitle": "Leverage trusted voices to reach new audiences.",
+        "description": "We identify, vet, and manage influencer partnerships that deliver measurable impact for your brand."
+      },
+      "cta": "Start an Influencer Campaign",
+      "features": [
+        { "title": "Talent Sourcing", "description": "Find the right influencers for your goals." },
+        { "title": "Campaign Management", "description": "End-to-end execution and reporting." },
+        { "title": "Authentic Content", "description": "Collaborations that feel real, not forced." }
+      ]
+    },
+    "Social Media Marketing": {
+      "hero": {
+        "title": "Build Your Brand. Engage Your Audience.",
+        "subtitle": "Social strategies that drive real business results.",
+        "description": "We plan, create, and manage social campaigns that grow your following, boost engagement, and generate leads."
+      },
+      "cta": "Get a Social Media Audit",
+      "features": [
+        { "title": "Content Calendars", "description": "Consistent, strategic posting across platforms." },
+        { "title": "Community Management", "description": "Respond, engage, and build loyalty." },
+        { "title": "Paid Social", "description": "Targeted ads for maximum reach and ROI." }
+      ]
+    },
+    "Pay Per Click": {
+      "hero": {
+        "title": "Instant Traffic. Measurable Results.",
+        "subtitle": "PPC campaigns that maximize your ad spend.",
+        "description": "We design, launch, and optimize paid search and social campaigns for fast, cost-effective growth."
+      },
+      "cta": "Request a PPC Strategy Call",
+      "features": [
+        { "title": "Google Ads", "description": "Certified experts in search, display, and shopping." },
+        { "title": "A/B Testing", "description": "Continuous improvement for better ROI." },
+        { "title": "Conversion Tracking", "description": "See exactly what’s working and why." }
+      ]
+    },
+    "WhatsApp Marketing": {
+      "hero": {
+        "title": "Connect Directly. Convert Instantly.",
+        "subtitle": "WhatsApp campaigns for real-time engagement.",
+        "description": "We help you reach your audience where they are—on their phones—with personalized, high-converting WhatsApp messages."
+      },
+      "cta": "Start a WhatsApp Campaign",
+      "features": [
+        { "title": "Bulk Messaging", "description": "Send offers, updates, and reminders at scale." },
+        { "title": "Interactive Campaigns", "description": "Polls, surveys, and feedback collection." },
+        { "title": "Opt-In Management", "description": "Grow your list the right way." }
+      ]
+    },
+    "E-mail Marketing": {
+      "hero": {
+        "title": "Nurture Leads. Retain Customers.",
+        "subtitle": "Email campaigns that drive action and loyalty.",
+        "description": "We design, write, and automate email sequences that move prospects through your funnel and keep customers coming back."
+      },
+      "cta": "Get a Free Email Audit",
+      "features": [
+        { "title": "List Building", "description": "Grow and segment your audience for better results." },
+        { "title": "Automations", "description": "Drip campaigns, follow-ups, and more." },
+        { "title": "Performance Analytics", "description": "Track opens, clicks, and conversions." }
+      ]
+    },
+    "Data Management": {
+      "hero": {
+        "title": "Organize, Secure, and Leverage Your Data.",
+        "subtitle": "Data solutions for smarter business decisions.",
+        "description": "We help you collect, store, and analyze your business data—turning information into actionable insights."
+      },
+      "cta": "Book a Data Strategy Session",
+      "features": [
+        { "title": "Data Integration", "description": "Connect all your tools and platforms." },
+        { "title": "Security & Compliance", "description": "Protect sensitive information and meet regulations." },
+        { "title": "Reporting Dashboards", "description": "Visualize your data for better decisions." }
+      ]
+    },
+    "PR Marketing": {
+      "hero": {
+        "title": "Shape Perception. Build Trust.",
+        "subtitle": "PR strategies for modern brands.",
+        "description": "We craft and distribute stories that get your brand noticed by the right people—media, investors, and customers alike."
+      },
+      "cta": "Request a PR Consultation",
+      "features": [
+        { "title": "Media Outreach", "description": "Get featured in top publications." },
+        { "title": "Crisis Management", "description": "Protect your reputation when it matters most." },
+        { "title": "Thought Leadership", "description": "Position your team as industry experts." }
+      ]
+    }
+  }
+}

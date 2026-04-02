@@ -1,22 +1,45 @@
-import React from "react";
+"use client";
+
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import industriesData from "../../Data/industries.json";
 
-export default async function IndustryPage({ params }) {
-  const { slug } = await params;
+// ─── Reusable fade-in wrapper ──────────────────────────────────────────────
+function FadeIn({ children, delay = 0, y = 28, className = "" }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay, ease: "easeOut" }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export default function IndustryPage({ params }) {
+  // ── Data wiring (unchanged logic) ────────────────────────────────────────
+  const { slug } = React.use ? React.use(params) : params;
   const industryName = industriesData.industrySlugMap[slug];
 
   if (!industryName) {
     return (
-      <div className="min-h-screen bg-linear-to-br from-[#17042e] to-[#40196e] flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-6xl font-bold text-white mb-4">404</h1>
-          <p className="text-xl text-gray-300">Industry not found</p>
+      <div className="min-h-screen bg-[#08001a] flex items-center justify-center">
+        <div className="text-center border border-white/10 px-16 py-20">
+          <p className="text-[10px] font-bold tracking-[0.35em] uppercase text-purple-400 mb-6">
+            Error 404
+          </p>
+          <h1 className="text-7xl font-black text-white mb-4">Not Found</h1>
+          <p className="text-gray-500 text-lg">Industry page does not exist.</p>
         </div>
       </div>
     );
   }
 
-  // 🔁 NEW: Pull *all* data from industries[industryName]
   const industryData = industriesData.industries[industryName];
   const heroContent = industryData.hero;
   const warningSigns = industryData.warningSigns || [];
@@ -28,410 +51,346 @@ export default async function IndustryPage({ params }) {
     "98% Satisfaction",
     "4.9 Rating",
   ];
-  const plans = industriesData.plans;
+
+  const plans = (
+    Array.isArray(industryData.plans)
+      ? industryData.plans
+      : typeof industryData.plans === "object" && industryData.plans !== null
+      ? Object.values(industryData.plans)
+      : []
+  ).sort((a, b) => {
+    const order = { Starter: 0, Growth: 1, Premium: 2 };
+    return (order[a.name] ?? 999) - (order[b.name] ?? 999);
+  });
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-[#17042e] to-[#40196e] text-white overflow-hidden">
-      {/* ================= HERO ================= */}
-      <section className="relative pt-32 pb-20 px-6">
-        <div className="max-w-6xl mx-auto text-center relative z-10">
-          <div className="inline-block bg-linear-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full text-sm font-semibold mb-6 shadow-lg">
-            ✨ {industryName}
-          </div>
+    <div className="min-h-screen bg-[#08001a] text-white overflow-hidden font-sans">
 
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            {heroContent.title}
-          </h1>
-
-          <p className="text-2xl md:text-3xl mb-4 bg-linear-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent font-bold">
-            {heroContent.subtitle}
-          </p>
-
-          <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-            {heroContent.description}
-          </p>
-
-          <button className="bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 px-10 rounded-full text-lg shadow-2xl transform hover:scale-105 transition-all duration-300">
-            {ctaText} →
-          </button>
+      {/* ══════════════════════════════════════════════════════════════
+          HERO
+      ══════════════════════════════════════════════════════════════ */}
+      <section className="relative pt-5 pb-28 px-6 overflow-hidden">
+        {/* Ambient glows */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-1/3 w-[600px] h-[600px] bg-purple-900/20 rounded-full blur-[160px]" />
+          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-indigo-900/15 rounded-full blur-[140px]" />
         </div>
 
-        {/* GLOW EFFECTS */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600 rounded-full filter blur-3xl opacity-20 animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-600 rounded-full filter blur-3xl opacity-20 animate-pulse delay-1000"></div>
-      </section>
-
-      {/* ================= WARNING SIGNS ================= */}
-      {warningSigns.length > 0 && (
-        <section className="py-20 px-6 bg-linear-to-br from-[#17042e] to-[#40196e] relative overflow-hidden">
-          <style
-            dangerouslySetInnerHTML={{
-              __html: `
-            .flip-card {
-              perspective: 1000px;
-            }
-            .flip-card-inner {
-              position: relative;
-              width: 100%;
-              height: 100%;
-              transition: transform 0.6s;
-              transform-style: preserve-3d;
-            }
-            .flip-card:hover .flip-card-inner {
-              transform: rotateY(180deg);
-            }
-            .flip-card-front, .flip-card-back {
-              position: absolute;
-              width: 100%;
-              height: 100%;
-              backface-visibility: hidden;
-              -webkit-backface-visibility: hidden;
-            }
-            .flip-card-back {
-              transform: rotateY(180deg);
-            }
-          `,
-            }}
-          />
-
-          {/* Decorative dots in top right */}
-          <div className="absolute top-8 right-8 w-16 h-16 opacity-20">
-            <div className="grid grid-cols-3 gap-2">
-              {[...Array(9)].map((_, i) => (
-                <div key={i} className="w-2 h-2 bg-white rounded-full"></div>
-              ))}
-            </div>
-          </div>
-
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">
-              Why Choose Us ? <br />
-              <p> — Premium, Powerful, AI+VR Digital Marketing Positioning —</p>
-            </h2>
-            <p className="text-center text-gray-300 text-lg mb-16 max-w-3xl mx-auto">
-              If your social media feels like shouting into the void, you're not
-              alone
-              <br />
-              —but you don't have to stay there.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {warningSigns.map((sign, i) => (
-                <div
-                  key={i}
-                  className="h-auto w-full rounded-3xl overflow-hidden"
-                  // flip motion commented below
-                  // className="flip-card h-80 w-full"
-                >
-                  <div
-                    className="p-8 bg-white/10 backdrop-blur-md rounded-3xl border border-purple-500/30 flex flex-col h-full"
-                    // flip motion commented below
-                    // className="flip-card-inner"
-                  >
-                    {/* Front of card (now the only side) */}
-                    <div
-                      className="flex flex-col h-full"
-                      // flip-card-front commented
-                    >
-                      
-
-                      <h3 className="text-2xl font-bold text-white mb-3 break-words">
-                        {sign.title}
-                      </h3>
-
-                      <p className="text-gray-300 leading-relaxed break-words">
-                        {sign.description}
-                      </p>
-                    </div>
-
-                    {/* Back removed OR you can keep it commented */}
-                    {/*
-        <div className="flip-card-back p-8 bg-linear-to-br from-purple-600 to-pink-600 rounded-3xl flex flex-col justify-center items-center text-center border border-purple-400">
-          <div className="w-12 h-12 bg-white/30 rounded-full flex items-center justify-center text-2xl mb-6">
-            ✨
-          </div>
-          <h3 className="text-2xl font-bold text-white mb-4">
-            We Can Help!
-          </h3>
-          <p className="text-white/90 leading-relaxed mb-6">
-            Transform your social media presence with our expert
-            strategies and proven solutions.
-          </p>
-          <button className="bg-white text-purple-900 px-6 py-2 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 shadow-lg">
-            Learn More →
-          </button>
-        </div>
-        */}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ================= STATS ================= */}
-      <section className="py-16 px-6 bg-black/20 backdrop-blur-sm overflow-hidden relative">
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `
-          @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-          }
-          .animate-marquee {
-            animation: marquee 20s linear infinite;
-          }
-          .animate-marquee:hover {
-            animation-play-state: paused;
-          }
-        `,
+        {/* Decorative grid lines */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.04]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)",
+            backgroundSize: "80px 80px",
           }}
         />
 
-        <div className="relative">
-          <div className="flex animate-marquee">
-            {/* First set */}
-            {stats.map((item, i) => (
-              <div
-                key={i}
-                className="shrink-0 mx-4 text-center p-6 bg-white/5 backdrop-blur-md rounded-2xl border border-purple-500/30 hover:border-purple-500/60 transition-all duration-300 hover:transform hover:scale-105 w-72"
-              >
-                <div className="text-4xl font-bold bg-linear-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
-                  {item.split(" ")[0]}
-                </div>
-                <div className="text-sm text-gray-400 uppercase tracking-wide">
-                  {item.split(" ").slice(1).join(" ")}
-                </div>
-              </div>
-            ))}
-            {/* Duplicate set for seamless loop */}
-            {stats.map((item, i) => (
-              <div
-                key={`dup-${i}`}
-                className="shrink-0 mx-4 text-center p-6 bg-white/5 backdrop-blur-md rounded-2xl border border-purple-500/30 hover:border-purple-500/60 transition-all duration-300 hover:transform hover:scale-105 w-72"
-              >
-                <div className="text-4xl font-bold bg-linear-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
-                  {item.split(" ")[0]}
-                </div>
-                <div className="text-sm text-gray-400 uppercase tracking-wide">
-                  {item.split(" ").slice(1).join(" ")}
-                </div>
-              </div>
-            ))}
-          </div>
+        <div className="relative max-w-5xl mx-auto">
+          <FadeIn delay={0}>
+              <span className="inline-block text-[10px] font-bold tracking-[0.35em] uppercase text-purple-400 border border-purple-500/40 bg-purple-500/10 px-5 py-1.5 mb-8">
+                {industryName}
+              </span>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-[1.0] tracking-tight text-white mb-6">
+              {heroContent.title}
+            </h1>
+          </FadeIn>
+
+          <FadeIn delay={0.2}>
+            <p className="text-xl md:text-2xl font-semibold text-purple-300 mb-5">
+              {heroContent.subtitle}
+            </p>
+          </FadeIn>
+
+          <FadeIn delay={0.3}>
+              <p className="text-base md:text-lg text-gray-400 max-w-2xl leading-relaxed mb-10">
+                {heroContent.description}
+              </p>
+          </FadeIn>
+
+          <FadeIn delay={0.4}>
+            <a
+              href="/Contact"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-purple-600 hover:bg-purple-500 text-white text-sm font-bold uppercase tracking-[0.18em] transition-colors duration-300 group"
+            >
+              {ctaText}
+              <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300">
+                <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+          </FadeIn>
+        </div>
+
+        {/* Bottom rule */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-white/[0.06]" />
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════
+          STATS — horizontal scrolling ticker
+      ══════════════════════════════════════════════════════════════ */}
+      <section className="relative py-0 overflow-hidden border-b border-white/[0.06]">
+        <style dangerouslySetInnerHTML={{ __html: `
+          @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+          .ticker-track { animation: ticker 30s linear infinite; }
+          .ticker-track:hover { animation-play-state: paused; }
+        ` }} />
+
+        <div className="flex ticker-track whitespace-nowrap">
+          {[...stats, ...stats].map((item, i) => (
+            <div key={i} className="inline-flex items-center shrink-0 px-12 py-5 border-r border-white/[0.06] gap-4">
+              <span className="text-2xl font-black text-white">{item.split(" ")[0]}</span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-purple-500">
+                {item.split(" ").slice(1).join(" ")}
+              </span>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* ================= WHY OUR APPROACH WORKS ================= */}
-      {approachHighlights.length > 0 && (
-        <section className="py-20 px-6 bg-linear-to-br from-[#17042e] to-[#40196e]">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                Why Our Approach Works
-              </h2>
-              <p className="text-lg text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                We don't just make your feed pretty—we make it profitable. Every
-                post is strategically designed to grow your audience and drive
-                results.
-              </p>
-            </div>
+      {/* ══════════════════════════════════════════════════════════════
+          WHY CHOOSE US — warning signs / feature grid
+      ══════════════════════════════════════════════════════════════ */}
+      {warningSigns.length > 0 && (
+        <section className="relative py-28 px-6 bg-[#08001a]">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[160px] -translate-y-1/2" />
+          </div>
 
-            <div className="space-y-8">
-              {approachHighlights.map((item, i) => (
-                <div
-                  key={i}
-                  className="group bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-purple-500/30 hover:border-purple-500/60 hover:bg-white/10 transition-all duration-300"
-                >
-                  <div className="flex items-start gap-6">
-                    <div className="shrink-0 w-14 h-14 bg-linear-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-3xl shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      {item.icon}
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:from-purple-400 group-hover:to-pink-400 group-hover:bg-clip-text transition-all duration-300">
-                        {item.title}
-                      </h3>
-                      <p className="text-gray-300 leading-relaxed text-base">
-                        {item.description}
-                      </p>
-                    </div>
+          <div className="relative max-w-7xl mx-auto">
+
+            {/* Header */}
+            <FadeIn className="text-center mb-16">
+              <span className="inline-block text-[10px] font-bold tracking-[0.35em] uppercase text-purple-400 border border-purple-500/40 bg-purple-500/10 px-5 py-1.5 mb-6">
+                Why Choose Us
+              </span>
+              <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 leading-tight">
+                Premium. Powerful.
+                <br />
+                <span className="text-purple-300">AI + Digital Marketing.</span>
+              </h2>
+              <div className="flex items-center justify-center gap-3 mt-6">
+                <div className="h-px w-16 bg-purple-600/40" />
+                <div className="w-1.5 h-1.5 bg-purple-500 rotate-45" />
+                <div className="h-px w-16 bg-purple-600/40" />
+              </div>
+            </FadeIn>
+
+            {/* Cards grid — editorial ruled lines */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.06] border border-white/[0.06]">
+              {warningSigns.map((sign, i) => (
+                <FadeIn key={i} delay={0.1 + i * 0.08}>
+                  <div className="group relative p-8 sm:p-10 bg-[#08001a] hover:bg-white/[0.03] transition-colors duration-300 h-full overflow-hidden">
+                    {/* Left accent */}
+                    <div className="absolute left-0 top-8 bottom-8 w-[3px] bg-purple-700/50 group-hover:bg-purple-400 transition-colors duration-300" />
+
+                    {/* Watermark number */}
+                    <span className="absolute top-6 right-7 text-6xl font-black text-white/[0.03] select-none leading-none group-hover:text-white/[0.05] transition-colors duration-300">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+
+                    <h3 className="text-base sm:text-lg font-bold text-white mb-3 group-hover:text-purple-100 transition-colors duration-300 leading-snug">
+                      {sign.title}
+                    </h3>
+                    <p className="text-gray-500 text-sm leading-relaxed group-hover:text-gray-400 transition-colors duration-300">
+                      {sign.description}
+                    </p>
                   </div>
-                </div>
+                </FadeIn>
               ))}
             </div>
           </div>
         </section>
       )}
 
-      {/* ================= PRICING ================= */}
-      <section className="py-20 px-6 bg-[#0a0220]">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-linear-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-            Choose Your Growth Plan
-          </h2>
+      {/* ══════════════════════════════════════════════════════════════
+          WHY OUR APPROACH WORKS
+      ══════════════════════════════════════════════════════════════ */}
+      {approachHighlights.length > 0 && (
+        <section className="relative py-28 px-6 bg-[#060012] border-t border-white/[0.06]">
+          <div className="max-w-5xl mx-auto">
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            {(Array.isArray(industryData.plans)
-                ? industryData.plans
-                : (typeof industryData.plans === 'object' && industryData.plans !== null)
-                  ? Object.values(industryData.plans)
-                  : [])
-              .sort((a, b) => {
-                const order = { Starter: 0, Growth: 1, Premium: 2 };
-                return (order[a.name] || 999) - (order[b.name] || 999);
-              })
-              .map((plan, i) => (
-                <div
-                  key={i}
-                  className={`relative overflow-hidden rounded-3xl backdrop-blur-md border transition-all duration-300 hover:scale-105 group flex flex-col ${
-                    plan.name === "Premium"
-                      ? "bg-linear-to-br from-purple-600/30 to-pink-600/30 border-purple-500 shadow-2xl shadow-purple-500/50 md:-mt-6 md:mb-6 md:scale-105"
-                      : "bg-white/5 border-purple-500/30 hover:border-purple-500/60"
-                  }`}
-                  style={{ minHeight: "680px" }}
-                >
-                  {/* Different background image for each card */}
-                  <div
-                    className="absolute inset-0 bg-cover bg-center opacity-30 group-hover:opacity-40 transition-opacity duration-300"
-                    style={{
-                      backgroundImage: `url('${
-                        i === 0
-                          ? "https://thumbs.dreamstime.com/b/blurred-office-interior-space-background-people-working-meeting-desk-business-concept-ai-generated-297090070.jpg"
-                          : i === 1
-                          ? "https://www.shutterstock.com/image-photo/blurred-office-meeting-diverse-people-260nw-2697683263.jpg"
-                          : "https://thumbs.dreamstime.com/b/corporate-collaboration-abstract-blurred-office-background-modern-space-symbolizing-teamwork-business-meeting-concepts-410876859.jpg"
-                      }')`,
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-linear-to-b from-transparent via-[#17042e]/90 to-[#17042e]" />
+            <FadeIn className="mb-16">
+              <span className="inline-block text-[10px] font-bold tracking-[0.35em] uppercase text-purple-400 border border-purple-500/40 bg-purple-500/10 px-5 py-1.5 mb-6">
+                Our Methodology
+              </span>
+              <h2 className="text-3xl md:text-5xl font-extrabold text-white leading-tight">
+                Why Our Approach Works
+              </h2>
+            </FadeIn>
 
-                  {/* Badge */}
-                  {plan.badge && (
-                    <div className="relative z-20 mx-8 mt-6">
-                      <div className="inline-block bg-linear-to-r from-yellow-500 to-orange-500 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg">
-                        {plan.badge}
-                      </div>
+            <div className="space-y-px border border-white/[0.06] bg-white/[0.06]">
+              {approachHighlights.map((item, i) => (
+                <FadeIn key={i} delay={0.1 + i * 0.09}>
+                  <div className="group flex items-start gap-8 p-8 sm:p-10 bg-[#060012] hover:bg-white/[0.03] transition-colors duration-300 relative overflow-hidden">
+                    {/* Step number */}
+                    <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.25em] text-purple-600 group-hover:text-purple-400 transition-colors pt-1 w-8 text-right">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+
+                    {/* Icon */}
+                    <div className="shrink-0 w-12 h-12 flex items-center justify-center bg-purple-500/10 border border-purple-500/25 text-purple-400 group-hover:bg-purple-500/20 group-hover:border-purple-400/50 group-hover:text-purple-300 transition-all duration-300 text-2xl">
+                      {item.icon}
                     </div>
-                  )}
 
-                  {/* Content */}
-                  <div className="relative z-10 p-8 flex flex-col flex-1">
-                    <div className="text-center mb-6">
-                      <h3 className="text-2xl font-bold text-white mb-3">
-                        {plan.name}
+                    <div className="flex-1">
+                      <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-purple-100 transition-colors duration-300">
+                        {item.title}
                       </h3>
-                      <div className="min-h-[60px] flex items-center justify-center">
-                        <p className="text-sm text-gray-300 leading-relaxed px-2">
-                          {plan.description}
-                        </p>
-                      </div>
+                      <p className="text-gray-500 text-sm leading-relaxed group-hover:text-gray-400 transition-colors duration-300">
+                        {item.description}
+                      </p>
                     </div>
+
+                    {/* Right arrow */}
+                    <svg viewBox="0 0 16 16" fill="none" className="shrink-0 w-4 h-4 text-purple-700 group-hover:text-purple-400 group-hover:translate-x-1 transition-all duration-300 mt-1">
+                      <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ══════════════════════════════════════════════════════════════
+          PRICING
+      ══════════════════════════════════════════════════════════════ */}
+      <section className="relative py-28 px-6 bg-[#08001a] border-t border-white/[0.06]">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-1/3 w-[500px] h-[500px] bg-purple-900/12 rounded-full blur-[160px]" />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto">
+
+          <FadeIn className="text-center mb-16">
+            <span className="inline-block text-[10px] font-bold tracking-[0.35em] uppercase text-purple-400 border border-purple-500/40 bg-purple-500/10 px-5 py-1.5 mb-6">
+              Pricing
+            </span>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-white leading-tight">
+              Choose Your Growth Plan
+            </h2>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/[0.06] border border-white/[0.06]">
+            {plans.map((plan, i) => {
+              const isPremium = plan.name === "Premium";
+              return (
+                <FadeIn key={i} delay={0.1 + i * 0.1} className="flex">
+                  <div
+                    className={`group relative flex flex-col w-full p-8 sm:p-10 transition-colors duration-300 overflow-hidden
+                      ${isPremium
+                        ? "bg-purple-600/10 hover:bg-purple-600/15"
+                        : "bg-[#08001a] hover:bg-white/[0.03]"
+                      }`}
+                  >
+                    {/* Top accent bar */}
+                    <div className={`absolute top-0 left-8 right-8 h-[3px] transition-colors duration-300
+                      ${isPremium ? "bg-purple-400" : "bg-purple-700/50 group-hover:bg-purple-500"}`} />
+
+                    {/* Badge */}
+                    {plan.badge && (
+                      <span className="inline-block self-start mb-6 text-[10px] font-black uppercase tracking-[0.25em] text-amber-400 border border-amber-500/40 bg-amber-500/10 px-4 py-1.5">
+                        {plan.badge}
+                      </span>
+                    )}
+
+                    {/* Plan name */}
+                    <p className="text-[10px] font-bold tracking-[0.3em] uppercase text-purple-400 mb-2">
+                      {plan.name}
+                    </p>
 
                     {/* Price */}
-                    <div className="text-center mb-8">
-                      <span className="text-6xl font-bold bg-linear-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    <div className="mb-4">
+                      <span className="text-6xl font-black text-white leading-none">
                         {plan.term.replace(" Months", "")}
                       </span>
-                      <span className="block text-xl text-gray-400 mt-2">
+                      <span className="text-gray-500 text-sm font-semibold uppercase tracking-widest ml-2">
                         Months
                       </span>
                     </div>
 
-                    {/* Pure CSS Collapsible Features */}
-                    <div className="mb-6 flex-1 flex flex-col relative">
-                      {/* Hidden checkbox */}
-                      <input
-                        type="checkbox"
-                        id={`expand-features-${i}`}
-                        className="peer sr-only"
-                      />
+                    {/* Description */}
+                    <p className="text-gray-500 text-sm leading-relaxed mb-8 min-h-[48px]">
+                      {plan.description}
+                    </p>
 
-                      {/* Features List - Flexible height container */}
-                      <div className="flex-1 flex flex-col">
-                        <ul className="space-y-4 text-base max-h-[280px] peer-checked:max-h-[2000px] overflow-hidden transition-all duration-500 ease-in-out">
-                          {plan.features.map((f, idx) => (
-                            <li key={idx} className="flex items-start gap-3">
-                              <span className="text-green-400 text-xl shrink-0 mt-0.5">
-                                ✓
-                              </span>
-                              <span className="text-gray-200 leading-relaxed">
-                                {f}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
+                    {/* Divider */}
+                    <div className="h-px bg-white/[0.06] mb-8" />
 
-                        {/* Toggle Label */}
-                        {plan.features.length > 6 && (
-                          <label
-                            htmlFor={`expand-features-${i}`}
-                            className="mt-5 block text-purple-400 hover:text-purple-300 font-semibold text-center cursor-pointer transition-colors"
-                          >
-                            <span className="inline-flex items-center gap-2 peer-checked:hidden">
-                              <span>Show More</span>
-                              <span className="text-xs opacity-70 font-normal">
-                                +{plan.features.length - 6}
-                              </span>
-                              <span>↓</span>
-                            </span>
-                            <span className="hidden items-center gap-2 peer-checked:inline-flex">
-                              <span>Show Less</span>
-                              <span>↑</span>
-                            </span>
-                          </label>
-                        )}
-                      </div>
-                    </div>
+                    {/* Features */}
+                    <ul className="space-y-3 flex-1 mb-10">
+                      {plan.features.map((f, idx) => (
+                        <li key={idx} className="flex items-start gap-3 text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+                          <span className="shrink-0 w-4 h-4 mt-0.5 flex items-center justify-center border border-purple-500/40 bg-purple-500/10 text-purple-400 text-[10px]">
+                            ✓
+                          </span>
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
 
-                    {/* CTA Button - Fixed at bottom */}
-                    <div className="mt-auto pt-6">
-                      <button
-                        className={`w-full py-4 rounded-full font-bold text-lg transition-all duration-300 shadow-2xl hover:shadow-purple-500/50 hover:-translate-y-1 ${
-                          plan.name === "Premium" || plan.name === "Starter"
-                            ? "bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
-                            : "bg-purple-800/50 hover:bg-purple-700/70 text-white border border-purple-500/50"
+                    {/* CTA */}
+                    <a
+                      href="/Contact"
+                      className={`mt-auto inline-flex items-center justify-center gap-2 py-3.5 px-6 text-sm font-bold uppercase tracking-[0.18em] transition-colors duration-300 group/btn
+                        ${isPremium
+                          ? "bg-purple-600 hover:bg-purple-500 text-white"
+                          : "bg-white/5 hover:bg-purple-600 text-gray-300 hover:text-white border border-white/10 hover:border-purple-500"
                         }`}
-                      >
-                        Start Your Success
-                      </button>
-                    </div>
+                    >
+                      Start Your Success
+                      <svg viewBox="0 0 16 16" fill="none" className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform duration-300">
+                        <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </a>
                   </div>
-                </div>
-              ))}
+                </FadeIn>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ================= CTA ================= */}
-      <section className="py-24 px-6 relative overflow-hidden">
-        <div className="absolute inset-0 bg-linear-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-sm"></div>
-
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            Ready to Grow{" "}
-            <span className="bg-linear-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              {industryName}
-            </span>
-            ?
-          </h2>
-
-          <p className="text-xl text-gray-300 mb-10 leading-relaxed">
-            Let's build something powerful.
-          </p>
-
-          <button className="bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-5 px-12 rounded-full text-xl shadow-2xl transform hover:scale-105 transition-all duration-300">
-            {ctaText} 🚀
-          </button>
+      {/* ══════════════════════════════════════════════════════════════
+          FINAL CTA
+      ══════════════════════════════════════════════════════════════ */}
+      <section className="relative py-28 px-6 border-t border-white/[0.06] overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-purple-900/20 rounded-full blur-[160px]" />
         </div>
 
-        {/* DECORATIVE GLOW */}
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-96 h-96 bg-purple-600 rounded-full filter blur-3xl opacity-20"></div>
+        <FadeIn className="relative max-w-5xl mx-auto border border-white/[0.06] bg-white/[0.02] px-8 sm:px-14 py-12 sm:py-16 flex flex-col lg:flex-row items-center justify-between gap-8">
+
+          <div className="flex items-start gap-5 max-w-2xl">
+            <svg viewBox="0 0 32 28" fill="none" className="w-10 h-10 flex-shrink-0 text-purple-600/60 mt-0.5">
+              <path d="M0 28V17.333C0 7.778 4.444 2.222 13.333 0L15.556 3.556C11.556 4.889 9.111 7.333 8.222 10.889H13.333V28H0ZM18.667 28V17.333C18.667 7.778 23.111 2.222 32 0L34.222 3.556C30.222 4.889 27.778 7.333 26.889 10.889H32V28H18.667Z" fill="currentColor" />
+            </svg>
+            <div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-tight mb-3">
+                Ready to Grow <span className="text-purple-300">{industryName}</span>?
+              </h2>
+              <p className="text-gray-500 text-base leading-relaxed">
+                Let's build something powerful — and built to last.
+              </p>
+            </div>
+          </div>
+
+          <a
+            href="/Contact"
+            className="flex-shrink-0 inline-flex items-center gap-3 px-8 py-4 bg-purple-600 hover:bg-purple-500 text-white text-sm font-bold uppercase tracking-[0.18em] transition-colors duration-300 group"
+          >
+            {ctaText}
+            <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300">
+              <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+        </FadeIn>
       </section>
+
     </div>
   );
 }
 
-export async function generateStaticParams() {
-  return Object.keys(industriesData.industrySlugMap).map((slug) => ({ slug }));
-}

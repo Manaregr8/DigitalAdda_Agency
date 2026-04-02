@@ -14,7 +14,6 @@ export default function Header() {
   const navItems = [
     { name: "Services", hasDropdown: true, href: "/" },
     { name: "Industries", hasDropdown: true, href: "/" },
-    { name: "Portfolio", hasDropdown: true, href: "/Portfolio" },
     { name: "About", hasDropdown: false, href: "/Aboutus" },
     { name: "blog", hasDropdown: false, href: "/blog" },
   ];
@@ -94,7 +93,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-linear-to-r from-black via-purple-900 to-gray-900 shadow-lg">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#070714] shadow-lg border-b border-purple-900/40">
         <div className="container mx-auto px-6 py-5 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
@@ -125,23 +124,23 @@ export default function Header() {
                     href={item.href}
                     className="text-white hover:text-purple-300 transition font-medium flex items-center gap-1 py-2"
                   >
-                    {item.name}
+                    <span className="text-white">{item.name}</span>
                     {hasDropdown && (
-                      <ChevronDown className="w-4 h-4" />
+                      <ChevronDown className="w-4 h-4 text-white" />
                     )}
                   </Link>
 
                   {/* Desktop Dropdown */}
                   {hasDropdown && openDropdown === item.name && (
-                    <div className="absolute  left-1/2 -translate-x-1/2 pt-0 top-full w-64">
-                      <div className="bg-gray-900/98 backdrop-blur-sm rounded-lg shadow-2xl py-2 border border-purple-500/20  max-h-[70vh] overflow-y-scroll hide-scrollbar">
+                    <div className="absolute left-1/2 -translate-x-1/2 pt-0 top-full w-64">
+                      <div className="bg-gray-900/98 backdrop-blur-sm rounded-lg shadow-2xl py-2 border border-purple-500/20 max-h-[70vh] overflow-y-scroll hide-scrollbar">
                         {dropdownData[item.name].map((subItem) => (
                           <Link
                             key={subItem.href}
                             href={subItem.href}
-                            className="block px-4 py-2.5 text-gray-300 hover:bg-purple-600/20 hover:text-purple-300 transition text-sm"
+                            className="block px-4 py-2.5 text-white hover:bg-purple-600/20 hover:text-purple-300 transition text-sm"
                           >
-                            {subItem.name}
+                            <span className="text-white">{subItem.name}</span>
                           </Link>
                         ))}
                       </div>
@@ -155,7 +154,7 @@ export default function Header() {
           {/* Desktop CTA */}
           <Link
             href="/Contact"
-            className="hidden lg:block px-6 py-3 bg-linear-to-r from-purple-600 to-indigo-600 rounded-lg font-semibold text-white shadow-lg hover:scale-105 transition-all duration-300"
+            className="hidden lg:block px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold text-white shadow-lg hover:scale-105 transition-all duration-300"
           >
             Get in touch
           </Link>
@@ -180,7 +179,7 @@ export default function Header() {
 
       {/* Mobile Menu Panel */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 bg-linear-to-b from-gray-900 via-purple-900 to-gray-900 z-40 transform transition-transform duration-300 lg:hidden overflow-y-auto ${
+        className={`fixed top-0 right-0 h-full w-80 bg-[#0a0a18] z-40 transform transition-transform duration-300 lg:hidden overflow-y-auto ${
           mobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -203,7 +202,7 @@ export default function Header() {
                 {hasDropdown ? (
                   <button
                     onClick={() => setOpenDropdown(isOpen ? null : item.name)}
-                    className="w-full flex items-center justify-between text-left text-gray-100 hover:text-purple-300 transition text-lg font-medium py-3"
+                    className="w-full flex items-center justify-between text-left text-white hover:text-purple-300 transition text-lg font-medium py-3"
                   >
                     {item.name}
                     <ChevronDown
@@ -216,7 +215,7 @@ export default function Header() {
                   <Link
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="w-full flex items-center justify-between text-left text-gray-100 hover:text-purple-300 transition text-lg font-medium py-3"
+                    className="w-full flex items-center justify-between text-left text-white hover:text-purple-300 transition text-lg font-medium py-3"
                   >
                     {item.name}
                   </Link>
@@ -230,7 +229,7 @@ export default function Header() {
                         key={subItem.href}
                         href={subItem.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className="block py-2 text-gray-300 hover:text-purple-400 transition text-sm"
+                        className="block py-2 text-white hover:text-purple-400 transition text-sm"
                       >
                         {subItem.name}
                       </Link>
@@ -246,7 +245,7 @@ export default function Header() {
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full block px-8 py-4 bg-linear-to-r from-purple-600 to-indigo-600 rounded-2xl font-bold text-white shadow-2xl shadow-purple-500/50 hover:scale-105 transition-all duration-300 text-center"
+              className="w-full block px-8 py-4 bg-purple-600 hover:bg-purple-700 rounded-2xl font-bold text-white shadow-2xl shadow-purple-500/50 hover:scale-105 transition-all duration-300 text-center"
             >
               Get in touch
             </Link>
@@ -267,7 +266,7 @@ export default function Header() {
         >
           {/* Container - wider on desktop, narrow on mobile */}
           <div className="w-full max-w-md md:max-w-3xl lg:max-w-4xl max-h-[90vh] overflow-y-auto hide-scrollbar">
-            <div className="bg-gradient-to-b from-gray-900 to-purple-900/50 rounded-3xl p-6 md:p-8 relative border border-purple-500/30 shadow-2xl">
+            <div className="bg-gray-900 rounded-3xl p-6 md:p-8 relative border border-purple-500/30 shadow-2xl">
               {/* Close Button */}
               <button
                 onClick={() => {
@@ -282,7 +281,7 @@ export default function Header() {
               {!showSuccess ? (
                 <>
                   <div className="text-center mb-6 md:mb-8">
-                    <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent mb-2">
+                    <h2 className="text-2xl md:text-3xl font-bold text-purple-300 mb-2">
                       Get Free Consultation
                     </h2>
                     <p className="text-gray-300 text-sm md:text-base">
@@ -372,7 +371,7 @@ export default function Header() {
 
                     <button
                       type="submit"
-                      className="w-full py-3 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl font-semibold text-white shadow-lg hover:scale-[1.02] transition-transform duration-300 text-sm md:text-base"
+                      className="w-full py-3 bg-purple-600 hover:bg-purple-700 rounded-xl font-semibold text-white shadow-lg hover:scale-[1.02] transition-transform duration-300 text-sm md:text-base"
                     >
                       Send Message
                     </button>
@@ -380,7 +379,7 @@ export default function Header() {
                 </>
               ) : (
                 <div className="text-center py-6 md:py-12">
-                  <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 md:w-20 md:h-20 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <span className="text-2xl md:text-4xl text-white">✓</span>
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Thank You!</h3>
@@ -402,62 +401,7 @@ export default function Header() {
         className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:scale-110 transition-all duration-300"
       >
         <img className="w-8 h-8" src="/social.png" alt="WhatsApp" />
-      </a>
-
-      {/* AI CHATBOT TOGGLE BUTTON */}
-      <div
-        onClick={() => setChatOpen(!chatOpen)}
-        className="fixed bottom-24 right-6 z-50 cursor-pointer group"
-      >
-        <div className="bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-full shadow-lg hover:scale-110 transition-all duration-300">
-          <img className="w-8 h-8" src="/robot.png" alt="AI Assistant" />
-        </div>
-      </div>
-
-      {/* AI CHATBOT PANEL */}
-      <div
-        className={`fixed bottom-24 right-6 z-50 w-96 h-[500px] bg-gray-900 rounded-2xl shadow-2xl border border-purple-500/30 transform transition-all duration-300 ${
-          chatOpen ? "scale-100 opacity-100" : "scale-95 opacity-0 pointer-events-none"
-        }`}
-      >
-        {/* HEADER */}
-        <div className="bg-linear-to-r from-purple-600 to-indigo-600 p-4 rounded-t-2xl flex items-center justify-between">
-          <span className="text-white font-bold text-lg">AI Assistant</span>
-          <button
-            onClick={() => setChatOpen(false)}
-            className="text-purple-200 hover:text-white transition"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-
-        {/* CHAT CONTENT */}
-        <div className="p-4 h-[380px] overflow-y-auto space-y-4">
-          <div className="bg-purple-600/20 p-3 rounded-lg text-gray-200 text-sm">
-            👋 Hi! How can I help you today?
-          </div>
-          <div className="bg-gray-800 p-3 rounded-lg text-gray-200 text-sm ml-auto max-w-[80%]">
-            I want marketing help
-          </div>
-          <div className="bg-purple-600/20 p-3 rounded-lg text-gray-200 text-sm">
-            ✅ Sure! We offer SEO, Ads, Websites & more.
-          </div>
-        </div>
-
-        {/* INPUT BAR */}
-        <div className="pb-4 border-t border-gray-800">
-          <div className="flex gap-2">
-            <input
-              type="text"
-              placeholder="Type a message..."
-              className="flex-1 bg-gray-800 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-            />
-            <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition">
-              ▶
-            </button>
-          </div>
-        </div>
-      </div>
+	  </a>
 
       <style jsx>{`
         .hide-scrollbar::-webkit-scrollbar {

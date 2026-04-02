@@ -1,6 +1,7 @@
 import Homesection1 from "@/Homesections/Homesection1";
 import Homesection2 from "@/Homesections/Homesection2";
 import Homesection3 from "@/Homesections/Homesection3";
+import HomesectionTrust from "@/Homesections/HomesectionTrust";
 import Homesection4 from "@/Homesections/Homesection4";
 import Homesection5 from "@/Homesections/Homesection5";
 import Homesection6 from "@/Homesections/Homesection6"; 
@@ -62,10 +63,12 @@ export default function Home() {
 
       {/* Page Sections */}
       <Homesection1 />
-      <Homesection2_1 />
+      {/*<Homesection2_1 />*/}
+      
       <Homesection2_2 />
       <Homesection2 />
       <Homesection3 />
+      <HomesectionTrust />
       <Homesection4 />
       <Homesection6 />
       <Homesection5 />

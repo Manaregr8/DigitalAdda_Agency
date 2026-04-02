@@ -52,46 +52,31 @@ export default function ContactPage() {
 
   return (
     <>
-      {/* HERO SECTION */}
-      <section className="relative min-h-[500px] h-[70vh] md:h-screen flex items-center justify-center text-center overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('/contactbg.jpeg')`,
-            backgroundPosition: 'center 30%'
-          }}
-        >
-          <div className="absolute inset-0 bg-black/50"></div>
-        </div>
-
-        <div className="relative z-10 px-4 sm:px-6 max-w-5xl mx-auto w-full">
-          <p className="mt-6 sm:mt-10 text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-white/90 leading-tight px-2">
-            Let's connect & <span className='text-[#980ffa]'>Grow</span> together.
-          </p>
-          <span className="block mt-4 sm:mt-6 text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-white/80 px-4">
+      {/* HERO SECTION - Modern, smaller headings, less gradient */}
+      <section className="relative min-h-[320px] flex items-center justify-center text-center bg-[#18122b]">
+        <div className="w-full max-w-3xl mx-auto px-4 py-16 sm:py-20">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-2 text-white">
+            Let's Connect & <span className="text-purple-400">Grow</span> Together
+          </h1>
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-4">
             Have a question, need expert guidance, or ready to take the next step?
-          </span>
-        </div>
-
-        <div className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-8 h-12 sm:w-10 sm:h-14 border-2 border-white/40 rounded-full flex justify-center">
-            <div className="w-1.5 h-3 sm:h-4 bg-white/60 rounded-full mt-3 sm:mt-4"></div>
-          </div>
+          </p>
         </div>
       </section>
 
-      {/* MAIN CONTENT */}
-      <section className="bg-gradient-to-br from-black via-gray-900 to-purple-900 py-12 sm:py-16 md:py-20 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-start">
+      {/* No divider or gap here for seamless transition */}
+
+      {/* MAIN CONTENT - Modern, more whitespace, subtle divider */}
+      <section className="bg-[#18122b] py-10 sm:py-14 px-4 sm:px-8">
+        <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-8 sm:gap-12 items-start">
 
           {/* Left Side – Content + Social Handles */}
           <div className="space-y-8 sm:space-y-12">
-            <div className="space-y-6 sm:space-y-8">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+            <div className="space-y-5">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">
                 We're Here to Help You Grow
               </h2>
-
-              <div className="text-gray-300 text-base sm:text-lg leading-relaxed space-y-4 sm:space-y-5">
+              <div className="text-gray-300 text-sm sm:text-base leading-relaxed space-y-2">
                 <p>
                   Whether you have a question, a project in mind, or just want to explore possibilities — we're here to help.
                 </p>
@@ -102,7 +87,7 @@ export default function ContactPage() {
             </div>
 
             {/* Social Media Handles */}
-            <div className="space-y-4 sm:space-y-6">
+            <div className="space-y-3 sm:space-y-4">
               {[
                 { icon: Instagram, name: "Instagram", handle: "Digitaladdaagency", link: "https://www.instagram.com/digitaladdaagency/" },
                 { icon: Linkedin, name: "LinkedIn", handle: "Digitaladdaagency", link: "https://www.linkedin.com/in/digitaladda-agency-283322372/" },
@@ -113,33 +98,30 @@ export default function ContactPage() {
                   href={social.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 sm:gap-6 p-4 sm:p-6 bg-gray-900/60 backdrop-blur-sm border border-gray-800 rounded-xl sm:rounded-2xl hover:border-purple-500/60 hover:bg-gray-900/80 transition-all group"
+                  className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-900/40 border border-gray-800 rounded-lg hover:border-purple-500/60 hover:bg-gray-900/60 transition-all group"
                 >
-                  <div className={`p-3 sm:p-4 rounded-xl ${i === 0 ? 'bg-gradient-to-br from-pink-600 to-purple-600' :
-                    i === 1 ? 'bg-gradient-to-br from-blue-600 to-cyan-600' :
-                      'bg-gradient-to-br from-purple-600 to-blue-600'
-                    } group-hover:scale-110 transition-transform`}>
-                    <social.icon className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
+                  <div className={`p-2 rounded-lg ${i === 0 ? 'bg-pink-600' : i === 1 ? 'bg-blue-600' : 'bg-purple-600'} group-hover:scale-110 transition-transform`}>
+                    <social.icon className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <p className="text-gray-500 text-xs sm:text-sm">{social.name}</p>
-                    <p className="text-base sm:text-xl text-white font-semibold break-all">{social.handle}</p>
+                    <p className="text-gray-500 text-xs">{social.name}</p>
+                    <p className="text-sm text-white font-semibold break-all">{social.handle}</p>
                   </div>
                 </a>
               ))}
             </div>
 
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-500 text-xs">
               Prefer email? <a href="mailto:Info@digitaladdagagency.com" className="text-purple-400 hover:underline break-all">Info@digitaladdagagency.com</a>
             </p>
           </div>
 
           {/* Right Side – Contact Form */}
-          <div className="bg-gray-900/70 backdrop-blur-xl border border-gray-800 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 xl:p-12 shadow-2xl">
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2">Start the Conversation</h3>
-            <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mb-6 sm:mb-8"></div>
+          <div className="bg-gray-900/60 border border-gray-800 rounded-xl p-5 sm:p-7 shadow-xl">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Start the Conversation</h3>
+            <div className="w-16 h-1 bg-purple-500 rounded-full mb-4"></div>
 
-            <div className="space-y-4 sm:space-y-6">
+            <div className="space-y-3 sm:space-y-4">
               <input
                 type="text"
                 name="fullName"
@@ -201,7 +183,7 @@ export default function ContactPage() {
               <button
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="w-full py-4 sm:py-5 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 disabled:opacity-70 text-white font-bold text-base sm:text-lg rounded-full transition-all shadow-xl flex items-center justify-center gap-3"
+                className="w-full py-3 bg-purple-600 hover:bg-purple-700 disabled:opacity-70 text-white font-bold text-base rounded-lg transition-all shadow flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>

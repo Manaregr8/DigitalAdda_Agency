@@ -1,6 +1,6 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
-import { Calendar, DollarSign, ChevronLeft, ChevronRight, BookOpen, Gem, Medal, Award } from 'lucide-react';
+
 
 // Updated categories – only the names changed
 const categories = [
@@ -107,7 +107,10 @@ const packageTiers = [
     badgeText: "text-gray-900",
     border: "border-gray-400/50",
     glow: "shadow-gray-400/30",
-    button: "from-gray-500 to-gray-700 hover:from-gray-400 hover:to-gray-600"
+    button: "bg-gray-600 hover:bg-gray-500",
+    icon: (
+      <svg width="22" height="22" fill="none" viewBox="0 0 24 24" className="text-gray-400"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" /><circle cx="12" cy="12" r="5" fill="currentColor" className="text-gray-300" /></svg>
+    )
   },
   {
     name: "Standard",
@@ -115,7 +118,10 @@ const packageTiers = [
     badgeText: "text-amber-950",
     border: "border-yellow-500/60",
     glow: "shadow-yellow-500/40",
-    button: "from-yellow-500 to-amber-700 hover:from-yellow-400 hover:to-amber-600"
+    button: "bg-amber-600 hover:bg-amber-500",
+    icon: (
+      <svg width="22" height="22" fill="none" viewBox="0 0 24 24" className="text-yellow-500"><rect x="4" y="4" width="16" height="16" rx="4" stroke="currentColor" strokeWidth="2" /><rect x="8" y="8" width="8" height="8" rx="2" fill="currentColor" className="text-yellow-300" /></svg>
+    )
   },
   {
     name: "Premium",
@@ -123,7 +129,10 @@ const packageTiers = [
     badgeText: "text-white",
     border: "border-cyan-400/70",
     glow: "shadow-cyan-400/50",
-    button: "from-cyan-500 to-blue-700 hover:from-cyan-400 hover:to-blue-600"
+    button: "bg-cyan-600 hover:bg-cyan-500",
+    icon: (
+      <svg width="22" height="22" fill="none" viewBox="0 0 24 24" className="text-cyan-400"><polygon points="12,2 22,20 2,20" stroke="currentColor" strokeWidth="2" fill="currentColor" className="text-cyan-300" /></svg>
+    )
   }
 ];
 
@@ -193,117 +202,94 @@ export default function PackagesPage() {
   }, [activeCategory]);
 
   return (
-    <section className="relative py-16 px-4 sm:px-6 overflow-hidden bg-gradient-to-br from-[#0f0020] via-[#1a0033] to-[#0f0f1e]">
+    <section className="relative py-20 sm:py-24 lg:py-28 overflow-hidden bg-[#0f0020]">
+      {/* Ambient glows */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-purple-800/30 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-pink-800/20 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/4 w-[480px] h-[480px] bg-purple-800/8 rounded-full blur-[140px]" />
+        <div className="absolute bottom-0 right-1/4 w-[360px] h-[360px] bg-cyan-800/8 rounded-full blur-[140px]" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <p className="text-purple-400 text-sm font-medium tracking-widest uppercase mb-3">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
+        {/* Section Header */}
+        <div className="text-center mb-14 sm:mb-16">
+          <span className="inline-block mb-5 text-[10px] sm:text-[11px] font-bold tracking-[0.3em] uppercase text-purple-400 border border-purple-500/40 px-5 py-1.5 bg-purple-500/10">
             Market Intelligence
-          </p>
-          <h2 className="text-4xl md:text-6xl font-black text-white mb-4">
-            RESEARCH PACKAGES
+          </span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-[1.1] mb-5 tracking-tight">
+            Research Packages
           </h2>
-          <div className="w-32 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full shadow-lg shadow-purple-500/80" />
+          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            Choose from our expertly curated research packages, tailored for your industry. Each package includes the latest market trends, growth forecasts, and actionable insights.
+          </p>
+          {/* Decorative divider */}
+          <div className="flex items-center justify-center gap-3 mt-7">
+            <div className="h-px w-16 bg-purple-600/40" />
+            <div className="w-1.5 h-1.5 bg-purple-500 rotate-45" />
+            <div className="h-px w-16 bg-purple-600/40" />
+          </div>
         </div>
 
         {/* Category Navigation */}
-        <div className="relative mb-12">
-          {canScrollLeft && (
-            <button onClick={() => scrollCategories('left')} className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
-              <ChevronLeft className="w-6 h-6 text-white" />
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10">
+          {categories.map((category, index) => (
+            <button
+              key={index}
+              onClick={() => setActiveCategory(index)}
+              className={`px-4 sm:px-6 py-2 rounded-full font-medium text-xs sm:text-sm border transition-all duration-300 whitespace-nowrap
+                ${activeCategory === index
+                  ? 'bg-purple-600 text-white border-transparent shadow-lg shadow-purple-500/40'
+                  : 'bg-white/5 text-gray-300 border-white/10 hover:border-purple-500/50 hover:bg-white/10'}
+              `}
+            >
+              {category}
             </button>
-          )}
-          <div ref={categoryScrollRef} className="flex gap-3 sm:gap-4 overflow-x-auto scrollbar-hide px-10 sm:px-12 scroll-smooth py-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-            {categories.map((category, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveCategory(index)}
-                className={`shrink-0 px-4 sm:px-6 py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300 border whitespace-nowrap ${
-                  activeCategory === index
-                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white border-transparent shadow-lg shadow-purple-500/50'
-                    : 'bg-white/5 text-gray-300 border-white/10 hover:border-purple-500/50 hover:bg-white/10'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-          {canScrollRight && (
-            <button onClick={() => scrollCategories('right')} className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
-              <ChevronRight className="w-6 h-6 text-white" />
-            </button>
-          )}
+          ))}
         </div>
 
-        {/* Reports Carousel */}
-        <div className="relative">
-          {carouselCanScrollLeft && (
-            <button onClick={() => scrollCarousel('left')} className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform">
-              <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-            </button>
-          )}
-          <div
-            ref={carouselScrollRef}
-            className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-hide px-8 sm:px-12 py-4 scroll-smooth snap-x"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            {currentReports.map((report, index) => {
-              const tier = packageTiers[index]; // 0=Silver, 1=Gold, 2=Diamond
-              return (
-                <div
-                  key={index}
-                  className={`group shrink-0 w-[280px] sm:w-80 lg:w-96 relative bg-white/5 backdrop-blur-xl border ${tier.border} rounded-2xl overflow-hidden hover:border-opacity-100 transition-all duration-500 hover:shadow-2xl hover:${tier.glow} snap-center`}
-                >
-                  {/* Badge */}
-                  <div className={`absolute top-4 right-4 z-10 px-4 py-2 rounded-full bg-gradient-to-r ${index === 0 ? 'from-gray-400 to-gray-600' : index === 1 ? 'from-yellow-400 to-amber-600' : 'from-cyan-400 to-blue-600'} shadow-lg flex items-center gap-2`}>
-                    {index === 0 && <Medal className="w-5 h-5" />}
-                    {index === 1 && <Award className="w-5 h-5" />}
-                    {index === 2 && <Gem className="w-5 h-5" />}
-                    <span className={`text-sm font-bold ${tier.badgeText}`}>{tier.name}</span>
-                  </div>
-
-                  {/* Package Image */}
-                  <div className="relative h-72 sm:h-80 overflow-hidden bg-black/20">
-                    <img 
-                      src={tier.image} 
-                      alt={`${tier.name} Package`}
-                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-                    />
-                  </div>
-
-                  {/* Details */}
-                  <div className="p-5 sm:p-6">
-                    <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-4 text-xs sm:text-sm text-gray-300">
-                      {/* <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-purple-400" />
-                        <span>{report.date}</span>
-                      </div> */}
-                      {/* <div className="flex items-center gap-2">
-                        <DollarSign className="w-4 h-4 text-purple-400" />
-                        <span className="font-bold text-white">{report.price}</span>
-                      </div> */}
-                    </div>
-                    <h3 className="text-white font-bold text-base sm:text-lg mb-4 line-clamp-2 group-hover:text-purple-300 transition-colors">
-                      {report.title}
-                    </h3>
-                    <button className={`w-full py-3 bg-gradient-to-r ${tier.button} text-white font-bold rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300`}>
-                      View Details
-                    </button>
-                  </div>
+        {/* Packages Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
+          {currentReports.map((report, index) => {
+            const tier = packageTiers[index];
+            return (
+              <div
+                key={index}
+                className={`group relative bg-white/5 backdrop-blur-xl border ${tier.border} rounded-2xl overflow-hidden hover:border-purple-500/70 transition-all duration-500 hover:shadow-2xl hover:${tier.glow}`}
+              >
+                {/* Tier Badge with SVG icon */}
+                <div className={`absolute top-5 right-5 z-10 px-4 py-2 rounded-full flex items-center gap-2 ${index === 0 ? 'bg-gray-500/90' : index === 1 ? 'bg-amber-500/90' : 'bg-cyan-500/90'} shadow-lg`}>
+                  {tier.icon}
+                  <span className={`text-xs font-bold ${tier.badgeText}`}>{tier.name}</span>
                 </div>
-              );
-            })}
-          </div>
-          {carouselCanScrollRight && (
-            <button onClick={() => scrollCarousel('right')} className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform">
-              <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-            </button>
-          )}
+                {/* Package Image */}
+                <div className="relative h-56 sm:h-64 overflow-hidden bg-black/20">
+                  <img 
+                    src={tier.image} 
+                    alt={`${tier.name} Package`}
+                    className="w-full h-full object-cover drop-shadow-xl opacity-90 group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                {/* Details */}
+                <div className="p-6">
+                  <h3 className="text-white font-bold text-base sm:text-lg mb-3 line-clamp-2 group-hover:text-purple-300 transition-colors">
+                    {report.title}
+                  </h3>
+                  <div className="flex items-center gap-3 text-xs text-gray-400 mb-4">
+                    <span className="inline-flex items-center gap-1">
+                      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" className="text-purple-400"><rect x="3" y="11" width="18" height="2" rx="1" fill="currentColor" /></svg>
+                      {report.date}
+                    </span>
+                    <span className="inline-flex items-center gap-1">
+                      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" className="text-purple-400"><circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="2" /><text x="12" y="16" textAnchor="middle" fontSize="10" fill="currentColor">$</text></svg>
+                      <span className="font-bold text-white">{report.price}</span>
+                    </span>
+                  </div>
+                  <button className={`w-full py-3 ${tier.button} text-white font-bold rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300`}>
+                    View Details
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

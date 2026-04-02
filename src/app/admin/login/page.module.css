@@ -3,7 +3,7 @@
   display: grid;
   place-items: center;
   padding: 1rem;
-  background: linear-gradient(120deg, #f4f9ff, #edf2ff);
+  background: #f4f9ff;
 }
 
 .authCard {
@@ -17,7 +17,7 @@
 }
 
 .brandSide {
-  background: linear-gradient(180deg, #0e2a47, #123d67);
+  background: #0e2a47;
   color: #f4f7fb;
   padding: 1.2rem;
 }
