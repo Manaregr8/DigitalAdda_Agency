@@ -1,37 +1,204 @@
+/* ── Blogs Listing Page ─────────────────────────── */
+
 .page {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 1rem 1rem 2rem;
-}
-
-.hero {
-  margin: 0.8rem 0 1.2rem;
-  padding: 1rem;
-  border-radius: 14px;
+  min-height: 100vh;
+  background: #08001a;
   color: #fff;
-  background: #0e2a47;
+  padding-bottom: 5rem;
 }
 
-.hero p {
-  margin: 0;
+/* ── Hero ──────────────────────────────────────── */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 1.5rem 5rem;
+  text-align: center;
+  background: linear-gradient(180deg, #0f0020 0%, #08001a 100%);
+}
+
+.heroGlow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.heroGlow::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(ellipse, rgba(139, 92, 246, 0.18) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.heroGlow::after {
+  content: "";
+  position: absolute;
+  bottom: -60px;
+  right: 10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(251, 191, 36, 0.07) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.heroEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.8rem;
+  color: #a78bfa;
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  background: rgba(139, 92, 246, 0.08);
+  padding: 0.4rem 1.2rem;
 }
 
-.hero h1 {
-  margin: 0.4rem 0 0;
+.heroDot {
+  width: 6px;
+  height: 6px;
+  background: #fbbf24;
+  transform: rotate(45deg);
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.heroTitle {
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin: 0 auto 1.25rem;
+  max-width: 800px;
+}
+
+.heroTitle span {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSub {
+  color: #9ca3af;
+  font-size: 1.05rem;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.heroDivider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+}
+
+.heroDividerLine {
+  height: 1px;
+  width: 64px;
+  background: rgba(139, 92, 246, 0.35);
+}
+
+.heroDividerDiamond {
+  width: 7px;
+  height: 7px;
+  background: #8b5cf6;
+  transform: rotate(45deg);
+}
+
+/* ── Stats Bar ─────────────────────────────────── */
+.statsBar {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.statItem {
+  flex: 1;
+  padding: 1.25rem 1rem;
+  text-align: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.statItem:last-child {
+  border-right: none;
+}
+
+.statNum {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #fbbf24;
+  display: block;
+}
+
+.statLabel {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6b7280;
+  display: block;
+  margin-top: 0.2rem;
+}
+
+/* ── Grid Section ──────────────────────────────── */
+.gridSection {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 0;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.sectionHeaderLine {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.sectionHeaderLabel {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #a78bfa;
+  white-space: nowrap;
 }
 
 .grid {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 }
 
+/* ── Empty State ───────────────────────────────── */
 .empty {
-  padding: 1rem;
-  border-radius: 12px;
-  background: #fff;
-  border: 1px solid #d8e1ef;
+  text-align: center;
+  padding: 5rem 1.5rem;
+  color: #6b7280;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.empty p {
+  font-size: 1rem;
+  margin: 0;
 }

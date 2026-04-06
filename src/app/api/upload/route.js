@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { ensureAdminApi } from "@/lib/auth";
+import { getAuthToken, verifyToken } from "@/lib/auth-jwt";
 import { recordAudit } from "@/lib/audit";
 import { getClientIp } from "@/lib/request-info";
 import { uploadToImgBB } from "@/lib/imgbb";
@@ -10,7 +10,9 @@ const MAX_FILE_SIZE_BYTES = 32 * 1024 * 1024;
 
 export async function POST(request) {
   try {
-    const session = await ensureAdminApi(request);
+    const token = await getAuthToken();
+    const session = token ? await verifyToken(token) : null;
+    
     if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -21,7 +23,7 @@ export async function POST(request) {
     }
 
     const formData = await request.formData();
-    const file = formData.get("file");
+    const file = formData.get("image") || formData.get("file");
 
     if (!file) {
       return NextResponse.json({ error: "Image file is required" }, { status: 400 });
@@ -55,7 +57,7 @@ export async function POST(request) {
 
     const ip = await getClientIp(request);
     await recordAudit("upload.image", {
-      actor: session.sub,
+      actor: session.email || session.sub || "admin",
       entity: "Upload",
       entityId: payload.id,
       ip,
